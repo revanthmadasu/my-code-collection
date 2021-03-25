@@ -7,7 +7,6 @@ function processData(input) {
     let inps = input.split('\n')
     let q = parseInt(inps[0])
     let sortedNums = []
-    let medianIndex = -1;
     let getMedian = () => {
         let median = 0;
         if (!sortedNums.length) {
