@@ -3,29 +3,23 @@ function myFunction (id, event) {
     console.log(`Search term is ${element.value}`);
 }
 
-function getThrottle(fn, delay, ...args) {
-    var paused = false;
+function getDebounce(fn, delay, ...args) {
+    var paused = 0;
     // console.log(`Args are ${args}`);
     return function (...args) {
         // console.log(`Id is ${id}, event is ${event}`);
         const apply = () => fn.apply({}, args);
-        if (!paused) {
-            // fn.apply({},args);
-            apply();
-        }
-        console.log('Setting pasued to true');
-        paused = true;
+        // console.log('Setting pasued to true');
+        ++paused;
         setTimeout(() => {
-            if (paused) {
-                console.log('Paused true is settimeout');
-                paused = false;
-                console.log('Set pasued to false in settimeout and calling apply');
+            --paused;
+            if (!paused) {
                 apply();
             }
         }, delay);
     }
 }
-const actionThrottle = getThrottle(myFunction, 1000)
+const actionDebounce = getDebounce(myFunction, 1000)
 // const actionThrottle = (event) => {
 //     console.log(event);
 // }

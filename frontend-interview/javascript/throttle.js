@@ -13,13 +13,13 @@ function getThrottle(fn, delay, ...args) {
             // fn.apply({},args);
             apply();
         }
-        console.log('Setting pasued to true');
+        // console.log('Setting pasued to true');
         paused = true;
         setTimeout(() => {
             if (paused) {
-                console.log('Paused true is settimeout');
+                // console.log('Paused true is settimeout');
                 paused = false;
-                console.log('Set pasued to false in settimeout and calling apply');
+                // console.log('Set pasued to false in settimeout and calling apply');
                 apply();
             }
         }, delay);
