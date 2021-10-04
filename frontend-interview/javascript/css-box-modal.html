@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <style>
+            .d-flex {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            .model-container {
+                background-color: indianred;
+            }
+            .modal {
+                background-color: green;
+                border: 10px solid yellow;
+                width: 400px;
+                height: 400px;
+                padding: 20px;
+                margin: 15px;
+            }
+            .content-modal {
+                box-sizing: content-box;
+            }
+            .border-modal {
+                box-sizing: border-box;
+            }
+            .content {
+                width: 200px;
+                height: 200px;
+                background-color: blue;
+            }
+            .center-positioning {
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="d-flex container">
+            <div>
+                <h4>Content Modal</h4>
+                <div class="model-container">
+                    <div class="modal content-modal d-flex center-positioning">
+                        <div class="content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4>Border Modal</h4>
+                <div class="model-container">
+                    <div class="modal border-modal d-flex center-positioning">
+                        <div class="content">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
