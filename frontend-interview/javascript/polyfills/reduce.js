@@ -35,3 +35,4 @@ const allPeopleNamesAggregated = people2.reduce((accumulated, current) => {
 });
 
 console.log('Reduced Value: ', allPeopleNamesAggregated);
+// [].reduce(a,b => a+b); // error scenario
