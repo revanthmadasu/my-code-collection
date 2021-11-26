@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script src="src.js"></script>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="d-flex justify-content-center">
+            <div class="container-fuid payment-wrapper d-flex flex-column">
+                <div class="card-container rounded d-inline-block">
+                    <div class="d-inline-flex mt-5 pt-3">
+                        <div class="row">
+                            <span class="card-number col-12">
+                                <span id="card-number" class="text-left"></span>
+                            </span>
+                            <span id="card-name" class="card-number col-9 pt-2"></span>
+                            <span class="d-inline-flex flex-column col-3 pt-2">
+                                <span class="font-sm">valid thru</span>
+                                <span id="card-exp-date"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-inputs row py-3">
+                    <div class="col-12 py-2">
+                        <input id="cardNumberInput" class="rounded w-100" type="text" placeholder="Card Number" maxlength="19"
+                            onkeyup="checkAccountNumber(event)" onblur="validateAccountNumber()">
+                    </div>
+                    <div class="col-12 py-2">
+                        <input id="nameInput" class="rounded w-100" type="text" placeholder="Name" onkeyup="checkName(event)">
+                    </div>
+                    <div class="col-6 py-2">
+                        <input id="vaidThruInput" class="rounded w-100" type="text" placeholder="Valid Thru" maxlength="5" onkeyup="checkDate(event)">
+                    </div>
+                    <div class="col-6 py-2">
+                        <input id="cvcInput"class="rounded w-100" type="password" maxlength="3" placeholder="CVC">
+                    </div>
+                    <div class="col-12 py-2">
+                        <button class="w-100 btn btn-primary text-capitalize" onclick="payAction()">pay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+.card-container {
+    background-color: #616161;
+    width: 280px;
+    height: 170px;
+}
+.payment-wrapper {
+    width: 400px;
+}
+.card-container {
+    color:#e8e8e8;
+}
+input {
+    height: 40px;
+    border: 1px solid #e7e7e7;
+    padding: 5px;
+}
+.font-sm {
+    font-size: 10px;
+}
