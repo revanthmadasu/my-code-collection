@@ -24,7 +24,6 @@ def maxSubarray(arr):
         if max_sum < cur_sum:
             max_sum = cur_sum
     return (max_sum,maxSubSequence)
-    # Write your code here
 
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
