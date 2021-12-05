@@ -1,6 +1,6 @@
 '''
 URL: https://leetcode.com/problems/longest-substring-without-repeating-characters/
-Concepts: Strings, Sliding Window
+Concepts: Strings, Sliding Window, Hashtable
 Runtime: 164ms => 52.58/100
 Memory: 16.5MB => 55.71/100
 '''
