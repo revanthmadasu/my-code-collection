@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Navigator Share Test</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div id="app">Nav Share Test</div>
+    <script>
+      window.navigator
+        .share({
+          url: "https://swiggy.com/",
+          title: "Share-Title",
+          text: "shareText"
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    </script>
+  </body>
+</html>
