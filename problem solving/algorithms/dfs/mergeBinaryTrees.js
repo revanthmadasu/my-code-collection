@@ -5,9 +5,10 @@
 
 /**
  * Pending - Lot of memory and runtime optimization to do
- * runtime 5.5 percentile
+ * runtime 56.52 percentile
  * memory: 6.35 percentile
  */
+
 /**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
@@ -29,28 +30,22 @@ var mergeTrees = function(root1, root2) {
     dfsTraversal(trav2, trav2Vals, trav2Order, 's');
     let resVals = {}, resNodesMap = {};
     if (!trav1Order.length && !trav2Order.length) {return null}
+    // creates nodes for tree1 and merges if same nodes are there in tree 2 - 0(n)
     trav1Order.forEach(path => {
-        const calc = () => {
+        resVals[path] = trav1Vals[path].val + (() => {
             if (trav2Vals[path]) {
                 trav2Vals[path].read = true;
-                // console.log(`Returning ${trav2Vals[path].val}`);
                 return trav2Vals[path].val;
             }
-            // console.log(`Returning 0`);
             return 0;
-        };
-        const calcVal = calc();
-        console.log(`Initial ${trav1Vals[path].val}`);
-        console.log(`Calculated Val ${calcVal}`);
-        resVals[path] = trav1Vals[path].val + calcVal;
-        console.log(`b1 ${path} resVal : ${resVals[path]}`);
+        })();
         resNodesMap[path] = getTreeNode(resVals[path], null, null);
         trav1Vals[path].read = true;
     });
+    // creates nodes for tree2 that are not there in tree1 - 0(n)
     trav2Order.forEach(path => {
         if (!trav2Vals[path].read) {
             resVals[path] = trav2Vals[path].val;
-            console.log(`b2 ${path} resVal : ${resVals[path]}`);
             resNodesMap[path] = getTreeNode(resVals[path], null, null);
             trav2Vals[path].read = true;
         }
@@ -62,9 +57,6 @@ var mergeTrees = function(root1, root2) {
             return;
         }
         const prevPath = path.slice(0,-1);
-        if (path === 's' || prevPath === '') { // opt
-            return;
-        }
         if (!connectedMap[prevPath]) {
             connect(prevPath);
         }
@@ -73,13 +65,15 @@ var mergeTrees = function(root1, root2) {
         const dir = path[path.length - 1];
         if (dir === 'l') {
             prevNode.left = currentNode;
+            connectedMap[path] = true;
         } else if (dir === 'r') {
             prevNode.right = currentNode;
+            connectedMap[path] = true;
         }
     };
+    // connect all nodes - 0(nlogn)
     allPaths.forEach(path => {
         connect(path);
-        console.log(`${path}: ${resNodesMap[path].val}`);
     });
     return resNodesMap['s'];
 }
