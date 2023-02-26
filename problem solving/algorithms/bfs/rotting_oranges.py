@@ -1,7 +1,8 @@
 '''
     Problem: https://leetcode.com/problems/rotting-oranges
     Concepts: bfs, matrix, disjointset, union-find
-    opt required - exceeds time limit
+    opt required - 5.11 runtime, 8.56 memory
+    remark: worst implementation
 '''
 from collections import defaultdict
 import math
@@ -22,7 +23,6 @@ class DisjointSet:
         self.valuesSetMap = defaultdict(lambda: None)
         self.allSets = []
     def makeSet(self, h_value, a_value):
-        # self.valuesSetMap[value] = [value]
         self.valuesSetMap[h_value] = {'hasRotton': a_value == 2, 'values': [h_value], 'rotten': {h_value} if a_value == 2 else set()}
         self.allSets.append(self.valuesSetMap[h_value])
     def findSet(self, value):
@@ -40,13 +40,6 @@ class DisjointSet:
         self.allSets.append(mergedSet)
         for val in merged:
             self.valuesSetMap[val] = mergedSet
-        # if valSet1 and valSet2:
-        # elif valSet1:
-        #     valSet1.values.append(val2)
-        #     valuesSetMap[val2] = valSet1
-        # else valSet2:
-        #     valSet2.values.append(val1)
-        #     valuesSetMap[val1] = valSet2
     def getAllSets(self):
         return self.allSets
 
@@ -58,9 +51,22 @@ class Solution:
         n = len(grid[0])
         for i in range(m):
             for j in range(n):
-                val = grid[i][j]
+                val = grid[i][j]           
                 cur_hash = getHash(i,j)
                 if val != 0:
+                    neighbours = [(i-1, j), (i+1, j), (i, j-1), (i, j+1)]
+                    eligible_neigh = []
+                    for neigh in neighbours:
+                        n_i, n_j = neigh
+                        if n_i >= 0 and n_i < m and n_j >= 0 and n_j < n:
+                            eligible_neigh.append((n_i, n_j))
+                    completely_restricted = True
+                    for neigh in eligible_neigh:
+                        n_i, n_j = neigh
+                        if grid[n_i][n_j] != 0:
+                            completely_restricted = False
+                    if completely_restricted and val == 1:
+                        return -1
                     disjointSet.makeSet(cur_hash, val)
                     if i-1 >= 0:
                         row_neigh_hash = getHash(i-1,j)
