@@ -74,17 +74,17 @@ class Solution:
         for neigh_set in disjointSet.allSets:
             if not neigh_set['hasRotton']:
                 return -1
-        print(f'all sets: {disjointSet.allSets}')
+        # print(f'all sets: {disjointSet.allSets}')
         for neigh_set in disjointSet.allSets:
             rot_counts.append(self.getRotCount(neigh_set, m, n))
         if len(rot_counts):
             return max(rot_counts)-1
         return 0
     def getRotCount(self, group, m, n):
-        all_pairs_count = len(group['values'])
-        rotten_count = len(group['rotten'])
-        all_pairs = list(map(lambda h: getPair(h), group['values']))
-        rotten_pairs = list(map(lambda h: getPair(h), group['rotten']))
+        # all_pairs_count = len(group['values'])
+        # rotten_count = len(group['rotten'])
+        # all_pairs = list(map(lambda h: getPair(h), group['values']))
+        # rotten_pairs = list(map(lambda h: getPair(h), group['rotten']))
         # print(f'all pairs are {all_pairs}')
         # print(f'rotten pairs are {rotten_pairs}')
         rot_map = defaultdict(lambda: None)
@@ -129,4 +129,15 @@ class Solution:
         return time_counter
 
 grid = [[2,0,0,2,1,2,2,2,2,1],[1,2,0,0,1,1,1,1,2,1],[1,2,1,1,1,1,2,0,1,0],[2,2,1,2,0,1,1,2,2,0],[1,1,0,0,0,2,1,2,2,0],[0,1,1,1,0,2,2,2,0,1],[2,2,1,0,2,0,2,1,1,1]]
+# time limit exceeds
+# grid = [
+#     [1,0,1,0,1,0,1,1,0],
+#     [0,0,0,1,2,2,2,0,2],
+#     [2,2,1,1,2,2,0,0,0],
+#     [1,2,0,0,2,2,1,1,1],
+#     [0,1,1,2,1,1,2,2,2],
+#     [2,1,2,0,2,1,1,2,2],
+#     [1,2,1,0,2,1,1,2,2],
+#     [0,0,2,1,1,2,2,2,0],
+#     [1,2,0,2,1,0,2,0,0]]
 print(Solution().orangesRotting(grid))
