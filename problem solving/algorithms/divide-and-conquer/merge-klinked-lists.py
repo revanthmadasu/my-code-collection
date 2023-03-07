@@ -1,3 +1,9 @@
+'''
+    problem: https://leetcode.com/problems/merge-k-sorted-lists/description/
+    concepts: LinkedLists, Recursion, Divide-and-conquer, sorting
+    runtime: 19.37%, memory: 5.33%
+    improve: runtime, memory
+'''
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, val=0, next=None):
