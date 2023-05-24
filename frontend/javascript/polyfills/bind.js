@@ -6,7 +6,7 @@ function myBind(bindingObject, ...args) {
     }
 }
 
-Function.prototype.bind = myBind;
+Function.prototype.mybind = myBind;
 
 function sayMyName(prefix, sufix) {
     return `${prefix || ''}${this.name}${sufix || ''}`;
@@ -16,8 +16,8 @@ const singer = {
     name: 'Bebe Rexha'
 };
 
-const bindedSayMyName = sayMyName.bind(singer);
+const bindedSayMyName = sayMyName.mybind(singer);
 
-// console.log(sayMyName.call(singer));
+console.log(sayMyName.call(singer));
 
 console.log(bindedSayMyName('The one and only '));
