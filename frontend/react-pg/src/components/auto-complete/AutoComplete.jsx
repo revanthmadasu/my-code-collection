@@ -1,7 +1,6 @@
 import { useCallback, useState, useMemo } from "react"
 import "./AutoComplete.css";
 export const AutoComplete = ({onTextChange, suggestions}) => {
-    const [text, setText] = useState('');
     const onTextInput = useCallback((event) => {
         console.log(event.target.value);
         onTextChange(event.target.value);
