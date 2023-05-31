@@ -1,0 +1,3 @@
+Why I failed to execute ?
+
+lost touch with making api call. unfamiliar code sandbox environment. unable to resolve client side cors issue. 

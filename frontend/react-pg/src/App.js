@@ -3,6 +3,7 @@ import './App.css';
 import AutoComplete from './components/auto-complete';
 import { useCallback, useState } from 'react';
 import ImageCarousel from './components/image-carousel';
+import { TableController } from './interviews/phaidra/Phaidra';
 
 function App() {
     const refreshSuggestions = useCallback((text) => {
@@ -36,7 +37,8 @@ function App() {
         <div className="App">
             <header className="App-header">
                 {/* <AutoComplete onTextChange={refreshSuggestions} suggestions={suggestions}/> */}
-                <ImageCarousel carouselItems={carouselItems}></ImageCarousel>
+                {/* <ImageCarousel carouselItems={carouselItems}></ImageCarousel> */}
+                <TableController></TableController>
             </header>
         </div>
     );

@@ -1,0 +1,15 @@
+We are going to create a simple webapp to display some information from the DOTA api. The full API documentation can be found here: https://docs.opendota.com/.
+
+We will be concentrating on a small section of this api, the explorer (https://docs.opendota.com/#tag/explorer).
+
+The task is: using the following API call https://api.opendota.com/api/explorer?sql=select * from matches order by start_time desc limit 100 offset 0 create a paginated table which displays the information below. The current query is set to 100 results, feel free to change this. To get the next page of information you will have to increment the offset in the query, e.g. ‘LIMIT 100 OFFSET 100’ will get you the next 100 results:
+
+match_id
+start_time
+duration
+first_blood_time
+radiant_score
+dire_score
+You are allowed to use third party libraries to create the table, for example dx-react-grid and material ui table, or something else you have used in the past.
+
+We will leave the styling of the table to your imagination!
