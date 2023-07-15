@@ -1,6 +1,7 @@
 /**
  * Problem: https://leetcode.com/problems/valid-sudoku
  * concepts: matrices, maps, arrays
+ * Runtime: 71.36%; Memory: 30.53%;
  */
 function isValidSudoku(board: string[][]): boolean {
     const colsMap = {};
