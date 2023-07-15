@@ -1,3 +1,7 @@
+/**
+ * Problem: https://leetcode.com/problems/valid-sudoku
+ * concepts: matrices, maps, arrays
+ */
 function isValidSudoku(board: string[][]): boolean {
     const colsMap = {};
     const rowsMap = {};
