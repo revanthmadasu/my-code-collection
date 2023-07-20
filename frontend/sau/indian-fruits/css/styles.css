@@ -1,0 +1,30 @@
+html {
+    font: normal normal normal 16px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+    background-color: rgb(252, 249, 244);
+}
+
+header {
+    font: normal normal normal 25px/1.4em 'playfair display',serif;
+    background-color: rgb(42,61,49);
+    color: white;
+}
+.image-intro {
+    background-image: url("../assets/fruits_bg.jpg");
+    /* width: 1000px; */
+    height: 560px;
+    background-size: cover;
+    font: normal normal normal 106px/1.4em museo-w01-700,museo-w05-700,serif;
+    color: white;
+}
+.intro-title-wrapper {
+    top: 155px;
+    left: 100px;
+}
+.image-intro h1 {
+    font-size: 5rem;
+}
+.image-intro .fruits-icon {
+    background-image: url("../assets/fruits_icon.svg");
+    width: 200px;
+    height: 200px;
+}
