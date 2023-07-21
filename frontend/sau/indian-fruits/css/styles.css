@@ -1,30 +1,138 @@
+:root {
+
+    /* colors */
+    --white: rgb(252, 249, 244);
+    --green: rgb(42,61,49);
+
+    /* fonts */
+    --font-body: normal normal normal 16px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
+    --font-heading: normal normal normal 106px/1.4em museo-w01-700,museo-w05-700,serif;
+    --font-title: normal normal normal 25px/1.4em 'playfair display',serif;
+}
+
+
 html {
-    font: normal normal normal 16px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
-    background-color: rgb(252, 249, 244);
+    font: var(--font-body);
+    background-color: var(--white);
+
+    min-width: 720px;
+    overflow-x: auto;
+}
+
+th {
+    color: var(--green) !important;
+}
+.primary {
+    color: var(--green) !important;
+}
+
+.icon-medium {
+    min-width: 200px;
+    width: 200px;
+    height: 200px;
+    background-size: cover;
+}
+
+.icon-small {
+    min-width: 100px;
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+}
+
+.icon-vsmall {
+    min-width: 75;
+    width: 75px;
+    height: 75px;
+    background-size: cover;
+}
+
+.icon-micro {
+    min-width: 50;
+    width: 50px;
+    height: 50px;
+    background-size: cover;
 }
 
 header {
-    font: normal normal normal 25px/1.4em 'playfair display',serif;
-    background-color: rgb(42,61,49);
-    color: white;
+    font: var(--font-title);
+    background-color: var(--green);
+    color: var(--white);
 }
+
+/* images/icons */
 .image-intro {
     background-image: url("../assets/fruits_bg.jpg");
     /* width: 1000px; */
     height: 560px;
     background-size: cover;
-    font: normal normal normal 106px/1.4em museo-w01-700,museo-w05-700,serif;
-    color: white;
-}
-.intro-title-wrapper {
-    top: 155px;
-    left: 100px;
+    font: var(--font-heading);
+    color: var(--white);
 }
 .image-intro h1 {
     font-size: 5rem;
 }
 .image-intro .fruits-icon {
     background-image: url("../assets/fruits_icon.svg");
-    width: 200px;
-    height: 200px;
+}
+
+.icon-fruit-basket {
+    background-image: url("../assets/fruit_basket.svg");
+}
+
+.icon-tropical-fruits {
+    background-image: url("../assets/tropical_drink.svg");
+}
+
+.icon-citrus-fruits {
+    background-image: url("../assets/citrus.svg");
+}
+
+.icon-stone-fruits {
+    background-image: url("../assets/cherry.svg");
+}
+
+.icon-berries-fruits {
+    background-image: url("../assets/berries.svg");
+}
+
+.icon-pome-fruits {
+    background-image: url("../assets/apple.svg");
+}
+
+.icon-melons-fruits {
+    background-image: url("../assets/watermelon.svg");
+}
+
+.icon-exotic-fruits {
+    background-image: url("../assets/avocado.svg");
+}
+
+.icon-grapes-fruits {
+    background-image: url("../assets/grapes.svg");
+}
+
+.icon-tropical-berries-fruits {
+    background-image: url("../assets/jamun.svg");
+}
+
+.icon-drupes-fruits {
+    background-image: url("../assets/coconut.svg");
+}
+
+.icon-mulberry-fruits {
+    background-image: url("../assets//mulberry.svg");
+}
+
+.icon-grapefruit-fruits {
+    background-image: url("../assets/grapefruit.svg");
+}
+
+.icon-plum-fruits {
+    background-image: url("../assets/plum.svg");
+}
+
+.intro-title-wrapper {
+    top: 155px;
+    left: 100px;
 }
