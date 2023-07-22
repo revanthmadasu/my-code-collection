@@ -136,3 +136,14 @@ header {
     top: 155px;
     left: 100px;
 }
+
+
+/* lists */
+
+.fruit-category {
+    bottom: 15px;
+}
+
+.category-item {
+    margin-bottom: 10px;
+}
