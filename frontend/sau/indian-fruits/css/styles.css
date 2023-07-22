@@ -26,6 +26,11 @@ th {
     color: var(--green) !important;
 }
 
+.image-medium {
+    width: 500px;
+    height: 500px;
+}
+
 .icon-medium {
     min-width: 200px;
     width: 200px;
@@ -151,4 +156,8 @@ header {
 .home-link {
     text-decoration: none;
     color: inherit;
+}
+
+.fruit-image {
+
 }
