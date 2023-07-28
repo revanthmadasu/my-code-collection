@@ -61,7 +61,7 @@ function validateTech(showMessage = false) {
 }
 
 function validateDifficulty(showMessage = false) {
-    const formItemElement = document.getElementById("nameInput");
+    const formItemElement = document.getElementById("selectRating");
     const isValid = formItemElement.value && formItemElement.value !== '0';
     markIfInvalid(isValid, "selectRating", showMessage, "difficultyErrorMsg");
     return isValid;
@@ -94,24 +94,29 @@ function markIfInvalid(isValid, formItemId, showMessage, errorTag) {
     }
 }
 
-function onSubmit(event) {
-    console.log("Submit clicked");
-    validateName();
-    validateEmail();
-    validatePhone();
-    validateAge();
-    validateTech();
-    validateDifficulty();
-    validateFeedback();
-    console.log("Form Processing done")
-}
-
 function validateOnSubmit() {
-    validateName(true);
-    validateEmail(true);
-    validatePhone(true);
-    validateAge(true);
-    validateTech(true);
-    validateDifficulty(true);
-    validateFeedback(true);
+    const validationResponses = [
+        validateName(true),
+        validateEmail(true),
+        validatePhone(true),
+        validateAge(true),
+        validateTech(true),
+        validateDifficulty(true),
+        validateFeedback(true)
+    ];
+    if (validationResponses.find(res => res)) {
+        // error does not exists
+        const formResponses = {
+            name: document.getElementById("nameInput").value,
+            email: document.getElementById("emailInput").value,
+            phone: document.getElementById("phoneInput").value,
+            age: Number.parseInt(document.getElementById("ageInput").value),
+            primaryTechnology: document.getElementById(formId).elements['selectTech'].value,
+            difficulty: document.getElementById("nameInput").value,
+            feedback: document.getElementById("feedbackInput").value
+        };
+        alert(`Your form is processed with values ${JSON.stringify(formResponses)}`);
+    } else {
+        alert("Your form has errors. Please check the messages and fill the form again.")
+    }
 }

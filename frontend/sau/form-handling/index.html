@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="survey-form my-3 col-sm-11 col-xs-12 col-md-10 col-lg-9 col-xl-8">
                 <h3 class="form-heading">Technology Survey Form</h3>
-                <form id="techSurveyForm" onsubmit="onSubmit(event)">
+                <form id="techSurveyForm" onsubmit="validateOnSubmit(event)">
                     <div class="mb-3 p-2">
                         <label for="nameInput" class="form-label">Enter Name:</label>
                         <input type="text" class="form-control" id="nameInput" onblur="validateName()">
@@ -47,23 +47,23 @@
 
                         <div class="form-group d-flex flex-column">
                             <div class="flex-item">
-                                <input type="radio" class="form-check-input" id="checkJava" name="selectTech" value="java">
+                                <input type="radio" class="form-check-input" id="checkJava" name="selectTech" value="java" onclick="validateTech()">
                                 <label for="checkJava" class="form-label">Java</label>
                             </div>
                             <div class="flex-item">
-                                <input type="radio" class="form-check-input" id="checkPython" name="selectTech" value="python">
+                                <input type="radio" class="form-check-input" id="checkPython" name="selectTech" value="python" onclick="validateTech()">
                                 <label for="checkPython" class="form-label">Python</label>
                             </div>
                             <div class="flex-item">
-                                <input type="radio" class="form-check-input" id="checkFrontend" name="selectTech" value="frontend">
+                                <input type="radio" class="form-check-input" id="checkFrontend" name="selectTech" value="frontend" onclick="validateTech()">
                                 <label for="checkFrontend" class="form-label">Frontend - HTML, CSS, JS</label>
                             </div>
                             <div class="flex-item">
-                                <input type="radio" class="form-check-input" id="checkAndroid" name="selectTech" value="android">
+                                <input type="radio" class="form-check-input" id="checkAndroid" name="selectTech" value="android" onclick="validateTech()">
                                 <label for="checkAndroid" class="form-label">Android</label>
                             </div>
                             <div class="flex-item">
-                                <input type="radio" class="form-check-input" id="checkIOS" name="selectTech" value="swift">
+                                <input type="radio" class="form-check-input" id="checkIOS" name="selectTech" value="swift" onclick="validateTech()">
                                 <label for="checkIOS" class="form-label">Swift - iOS</label>
                             </div>
                             <div id="techErrorMsg" class="error-msg d-none">
@@ -87,13 +87,15 @@
                     </div>
                     <div class="mb-3 p-2">
                         <label for="feedbackInput" class="form-label">Enter Feedback:</label>
-                        <input type="textarea" class="form-control" id="feedbackInput" onblur="validateDifficulty()">
+                        <input type="textarea" class="form-control" id="feedbackInput" onblur="validateFeedback()">
                         <div id="feedbackErrorMsg" class="error-msg d-none">
                             Error: Feedback should be between 15 and 250 characters.
                         </div>
                     </div>
                 </form>
-                <button onclick="validateOnSubmit()" class="btn btn-primary">Submit</button>
+                <div class="text-center">
+                    <button onclick="validateOnSubmit()" class="btn btn-primary">Submit</button>
+                </div>
             </div>
         </div>
 
