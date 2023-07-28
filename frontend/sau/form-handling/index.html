@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="./form.js"></script>
+</head>
+<body class="w-100 h-100 dark-bg">
+    <div class="survey-form-container container-fluid blurred-bg">
+        <div class="row justify-content-center">
+            <div class="col-8 survey-form">
+                <h3 class="form-heading">Technology Survey Form</h3>
+                <form id="techSurveyForm" onsubmit="onSubmit(event)">
+                    <div class="mb-3 p-2">
+                        <label for="nameInput" class="form-label">Enter Name:</label>
+                        <input type="text" class="form-control" id="nameInput" onblur="validateName()">
+                        <div id="nameErrorMsg"class="error-msg d-none">
+                            Error: Name should contain alphabets and should not exceed 30 characters
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="emailInput" class="form-label">Enter Email:</label>
+                        <input type="email" class="form-control" id="emailInput" onblur="validateEmail()">
+                        <div id="emailErrorMsg"class="error-msg d-none">
+                            Error: Improper email format
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="phoneInput" class="form-label">Enter Phone:</label>
+                        <input type="text" class="form-control" id="phoneInput" onblur="validatePhone()">
+                        <div id="phoneErrorMsg"class="error-msg d-none">
+                            Error: Improper phone format
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="ageInput" class="form-label"> Enter Age:</label>
+                        <input type="number" class="form-control" id="ageInput" min="12" max="100" onblur="validateAge()">
+                        <div id="ageErrorMsg"class="error-msg d-none">
+                            Error: Age should be between 12 and 100
+                        </div>
+                    </div>
+                    <div id="primaryTechCheckGroup" class="mb-3 p-2">
+                        <label class="form-label">Select Your Primary Technology:</label>
+
+                        <div class="form-group d-flex flex-column">
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkJava" name="selectTech" value="java">
+                                <label for="checkJava" class="form-label">Java</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkPython" name="selectTech" value="python">
+                                <label for="checkPython" class="form-label">Python</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkFrontend" name="selectTech" value="frontend">
+                                <label for="checkFrontend" class="form-label">Frontend - HTML, CSS, JS</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkAndroid" name="selectTech" value="android">
+                                <label for="checkAndroid" class="form-label">Android</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkIOS" name="selectTech" value="swift">
+                                <label for="checkIOS" class="form-label">Swift - iOS</label>
+                            </div>
+                            <div id="techErrorMsg" class="error-msg d-none">
+                                Error: Select Technology
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="selectRating" class="form-label">Select Difficulty:</label>
+                        <select id="selectRating" class="form-select" onblur="validateDifficulty()">
+                            <option value="0" selected disabled>Select</option>
+                            <option value="1">1 - Very Easy</option>
+                            <option value="2">2 - Easy</option>
+                            <option value="3">3 - Moderate</option>
+                            <option value="4">4 - Hard</option>
+                            <option value="5">4 - Very Hard</option>
+                          </select>
+                        <div id="difficultyErrorMsg"class="error-msg d-none">
+                            Select Difficulty
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="feedbackInput" class="form-label">Enter Feedback:</label>
+                        <input type="textarea" class="form-control" id="feedbackInput" onblur="validateDifficulty()">
+                        <div id="feedbackErrorMsg" class="error-msg d-none">
+                            Error: Feedback should be between 15 and 250 characters.
+                        </div>
+                    </div>
+                </form>
+                <button onclick="validateOnSubmit()" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </div>
+</body>

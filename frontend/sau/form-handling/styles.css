@@ -1,0 +1,23 @@
+body.dark-bg {
+    background-color: rgb(15 23 42);
+    color: #fff;
+}
+
+.blurred-bg {
+    backdrop-filter: blur(10px);
+}
+
+.group-is-invalid {
+    border: 1px solid red;
+    border-radius: 20px;
+}
+
+.group-is-valid {
+    border: 1px solid green;
+    border-radius: 20px;
+}
+
+.group-invalid-feedback {
+    display: block;
+    color: red;
+}
