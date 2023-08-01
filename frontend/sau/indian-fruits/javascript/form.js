@@ -130,3 +130,13 @@ function validateOnSubmit() {
         alert("Your form has errors. Please check the messages and fill the form again.")
     }
 }
+
+function checkIfFruitSelected() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fruitName = urlParams.get('fruitName');
+    if (fruitName) {
+        const formItemElement = document.getElementById("fruitNameInput");
+        formItemElement.setAttribute('value', fruitName);
+        validateFruitName();
+    }
+}
