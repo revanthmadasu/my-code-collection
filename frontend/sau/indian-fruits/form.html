@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="javascript/form.js"></script>
+</head>
+<body class="w-100 dark-bg">
+    <div class="survey-form-container container-fluid blurred-bg">
+        <div class="row justify-content-center">
+            <div class="survey-form my-3 col-sm-11 col-xs-12 col-md-10 col-lg-9 col-xl-8">
+                <h3 class="form-heading">Fruits Survey Form</h3>
+                <form id="fruitsSurveyForm" onsubmit="validateOnSubmit(event)">
+                    <div class="mb-3 p-2">
+                        <label for="nameInput" class="form-label">Enter Name:</label>
+                        <input type="text" class="form-control" id="nameInput" onblur="validateName()">
+                        <div id="nameErrorMsg"class="error-msg d-none">
+                            Error: Name should contain alphabets and should not exceed 30 characters
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="emailInput" class="form-label">Enter Email:</label>
+                        <input type="email" class="form-control" id="emailInput" onblur="validateEmail()">
+                        <div id="emailErrorMsg"class="error-msg d-none">
+                            Error: Improper email format
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="phoneInput" class="form-label">Enter Phone:</label>
+                        <input type="text" class="form-control" id="phoneInput" onblur="validatePhone()">
+                        <div id="phoneErrorMsg"class="error-msg d-none">
+                            Error: Improper phone format
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="ageInput" class="form-label"> Enter Age:</label>
+                        <input type="number" class="form-control" id="ageInput" min="12" max="100" onblur="validateAge()">
+                        <div id="ageErrorMsg"class="error-msg d-none">
+                            Error: Age should be between 12 and 100
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="fruitNameInput" class="form-label">Enter Fruit Name:</label>
+                        <input type="text" class="form-control" id="fruitNameInput" onblur="validateFruitName()">
+                        <div id="fruitNameErrorMsg"class="error-msg d-none">
+                            Error: Fruit Name should contain alphabets and should not exceed 30 characters
+                        </div>
+                    </div>
+                    <div id="tastesCheckGroup" class="mb-3 p-2">
+                        <label class="form-label">What was the dominating taste ?:</label>
+
+                        <div class="form-group d-flex flex-column">
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkSweet" name="selectTaste" value="sweet" onclick="validateTaste()">
+                                <label for="checkSweet" class="form-label">Sweet</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkTangy" name="selectTaste" value="tangy" onclick="validateTaste()">
+                                <label for="checkTangy" class="form-label">Tart/Tangy</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkCitrusy" name="selectTaste" value="citrusy" onclick="validateTaste()">
+                                <label for="checkCitrusy" class="form-label">Citrusy</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkMildNeutral" name="selectTaste" value="mild_neutral" onclick="validateTaste()">
+                                <label for="checkMildNeutral" class="form-label">Mild Neutral</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkBitter" name="selectTaste" value="bitter" onclick="validateTaste()">
+                                <label for="checkBitter" class="form-label">Bitter</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkAstrigent" name="selectTaste" value="astrigent" onclick="validateTaste()">
+                                <label for="checkAstrigent" class="form-label">Astrigent</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkCreamy" name="selectTaste" value="creamy" onclick="validateTaste()">
+                                <label for="checkCreamy" class="form-label">Creamy</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkEarthy" name="selectTaste" value="earthy" onclick="validateTaste()">
+                                <label for="checkEarthy" class="form-label">Earthy</label>
+                            </div>
+                            <div class="flex-item">
+                                <input type="radio" class="form-check-input" id="checkSpicy" name="selectTaste" value="spicy" onclick="validateTaste()">
+                                <label for="checkSpicy" class="form-label">Spicy</label>
+                            </div>
+                            <div id="tasteErrorMsg" class="error-msg d-none">
+                                Error: Select Taste
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="selectSatisfaction" class="form-label">How satisfied are you? </label>
+                        <select id="selectSatisfaction" class="form-select" onblur="validateSatisfaction()">
+                            <option value="0" selected disabled>Select</option>
+                            <option value="1">1 - Highly not satisfied</option>
+                            <option value="2">2 - Not Satisfied</option>
+                            <option value="3">3 - Somewhat Satisfied</option>
+                            <option value="4">4 - Highly Satisfied</option>
+                          </select>
+                        <div id="satisfactionErrorMsg"class="error-msg d-none">
+                            Select satisfaction
+                        </div>
+                    </div>
+                    <div class="mb-3 p-2">
+                        <label for="feedbackInput" class="form-label">Enter Feedback:</label>
+                        <input type="textarea" class="form-control" id="feedbackInput" onblur="validateFeedback()">
+                        <div id="feedbackErrorMsg" class="error-msg d-none">
+                            Error: Feedback should be between 15 and 250 characters.
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <button onclick="validateOnSubmit()" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
