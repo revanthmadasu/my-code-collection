@@ -7,7 +7,7 @@
     /* fonts */
     --font-body: normal normal normal 16px/1.4em din-next-w01-light,din-next-w02-light,din-next-w10-light,sans-serif;
     --font-heading: normal normal normal 106px/1.4em museo-w01-700,museo-w05-700,serif;
-    --font-title: normal normal normal 25px/1.4em 'playfair display',serif;
+    --font-title: normal normal normal 'playfair display',serif;
 }
 
 
@@ -15,7 +15,6 @@ html {
     font: var(--font-body);
     background-color: var(--white);
 
-    min-width: 720px;
     overflow-x: auto;
 }
 
@@ -66,22 +65,43 @@ header {
 }
 
 /* images/icons */
-.image-intro {
-    background-image: url("../assets/fruits_bg.jpg");
-    /* width: 1000px; */
-    height: 560px;
-    background-size: cover;
-    font: var(--font-heading);
-    color: var(--white);
+@media screen and (min-width: 768px) {
+    .image-intro {
+        background-image: url("../assets/fruits_bg.jpg");
+        /* width: 1000px; */
+        height: 560px;
+        background-size: cover;
+        font: var(--font-heading);
+        color: var(--white);
+    }
+    .image-intro h1 {
+        font-size: 5rem;
+    }
+    .image-intro .fruits-icon {
+        background-image: url("../assets/fruits_icon.svg");
+    }
 }
-.image-intro h1 {
-    font-size: 5rem;
-}
-.image-intro .fruits-icon {
-    background-image: url("../assets/fruits_icon.svg");
+/* small screen */
+@media screen and (max-width: 767px) {
+    .image-intro {
+        font: var(--font-heading);
+        color: var(--green);
+    }
+    .icon-medium {
+        min-width: 100px;
+        width: 100px;
+        height: 100px;
+    }
+    .image-intro h1 {
+        font-size: 3rem;
+    }
+    .image-intro .fruits-icon {
+        background-image: url("../assets/fruits_icon_green.svg");
+    }
 }
 
 .icon-fruit-basket {
+    float: left;
     background-image: url("../assets/fruit_basket.svg");
 }
 
@@ -153,9 +173,17 @@ header {
     margin-bottom: 10px;
 }
 
-.home-link {
+.plain-link {
     text-decoration: none;
     color: inherit;
+}
+
+.app-link {
+    font-size: 25px;
+}
+
+.fruit-description-item {
+    margin-top: 20px;
 }
 
 .fruit-image {
