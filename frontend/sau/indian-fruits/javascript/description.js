@@ -419,7 +419,7 @@ const getFruitHtml = (fruits) => {
             `;
                 }).join("")
             }
-        <div>
+        </div>
         `;
         console.log(html);
         return html;
@@ -433,5 +433,5 @@ const getAnchorLink = (fruits) => {
     console.log(anchorTags);
 };
 
-// getFruitHtml(fruits2);
-getAnchorLink(fruits2);
+getFruitHtml([...fruits, ...fruits2]);
+// getAnchorLink(fruits2);
