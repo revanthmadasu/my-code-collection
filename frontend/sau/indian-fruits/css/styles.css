@@ -55,6 +55,20 @@ th {
     background-size: cover;
 }
 
+/* nav links */
+.plain-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.app-link {
+    font-size: 25px;
+}
+
+.nav-link {
+    color: rgb(250, 255, 250) !important;
+}
+
 header {
     font: var(--font-title);
     background-color: var(--green);
@@ -178,14 +192,7 @@ header {
     margin-bottom: 10px;
 }
 
-.plain-link {
-    text-decoration: none;
-    color: inherit;
-}
 
-.app-link {
-    font-size: 25px;
-}
 
 .fruit-description-item {
     margin-top: 30px;
