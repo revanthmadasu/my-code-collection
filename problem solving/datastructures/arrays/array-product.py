@@ -1,24 +1,24 @@
-'''
-    problem: https://leetcode.com/problems/product-of-array-except-self
-    concepts: arrays, math
-    performance: 91% runtime, 99.4 memory
-'''
+import math
 class Solution(object):
-    def productExceptSelf(self, nums):
+    def canCompleteCircuit(self, gas, cost):
         """
-        :type nums: List[int]
-        :rtype: List[int]
+        :type gas: List[int]
+        :type cost: List[int]
+        :rtype: int
         """
-        product = 1
-        zero_count = 0
-        for num in nums:
-            if num != 0:
-                product *= num
-            else:
-                zero_count += 1
-        if zero_count > 1:
-            return [0]*len(nums)
-        real_prod = 0 if zero_count else product
+        total_gain = 0
+        curr_gain = 0
+        answer = 0
         
-        return list(map(lambda num: product if num == 0 else real_prod/num, nums))
+        for i in range(len(gas)):
+            # gain[i] = gas[i] - cost[i]
+            total_gain += gas[i] - cost[i]
+            curr_gain += gas[i] - cost[i]
+
+            # If we meet a "valley", start over from the next station
+            # with 0 initial gas.
+            if curr_gain < 0:
+                curr_gain = 0
+                answer = i + 1
         
+        return answer if total_gain >= 0 else -1
