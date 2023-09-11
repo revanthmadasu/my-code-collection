@@ -1,4 +1,9 @@
 /**
+ * Problem: https://leetcode.com/problems/valid-parentheses/
+ * Concepts: Stacks
+ * Performance: 83.68% runtime, 66.91% memory
+ */
+/**
  * @param {string} s
  * @return {boolean}
  */
