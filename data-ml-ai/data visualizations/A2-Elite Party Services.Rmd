@@ -1,0 +1,220 @@
+---
+title: "A2-EliteServices"
+output: html_document
+date: "2023-09-21"
+---
+
+```{r}
+# installation of packages
+if(!require("ggplot2")) install.packages("ggplot2")
+if(!require("dplyr")) install.packages("dplyr")
+if(!require("readxl")) install.packages("readxl")
+```
+
+```{r}
+# importing libraries
+library("ggplot2")
+library("dplyr")
+library("readxl")
+```
+```{r}
+getwd()
+```
+
+```{r}
+# listing files
+list.files()
+```
+
+```{r}
+#checking sheets in excel
+M1_sheet_names <- excel_sheets("1 - Elite Party Services - M1 - Initial dataset.xlsx")
+print(M1_sheet_names)
+```
+
+```{r}
+# importing data
+M1_Data <- read_excel("1 - Elite Party Services - M1 - Initial dataset.xlsx", sheet="1 - Elite Party Services - M1")
+```
+```{r}
+M1_Data
+```
+```{r}
+# importing data dictionary
+M1_DD <- read_excel("1 - Elite Party Services - M1 - Initial dataset.xlsx", sheet="Data Dictionary")
+```
+```{r}
+M1_DD
+```
+
+```{r}
+# list of the response options of lenght living
+M1_DD[1,]
+```
+
+```{r}
+#list of the response options for gender
+M1_DD[2,]
+```
+
+```{r}
+# list of the response options for ethnicity
+M1_DD[3,]
+```
+
+```{r}
+# list of the response options for age
+M1_DD[4,]
+```
+
+```{r}
+# list of the response options for education
+M1_DD[5,]
+```
+
+```{r}
+# list of the response options for income
+M1_DD[6,]
+```
+
+```{r}
+# list of the response options for religion
+M1_DD[7,]
+```
+```{r}
+# checking sheets in M2
+M2_sheet_names <- excel_sheets("1 - Elite Party Services - M2 - Change Over Time.xlsx")
+print(M2_sheet_names)
+```
+
+```{r}
+# Reading Data from M2
+M2_Data <- read_excel("1 - Elite Party Services - M2 - Change Over Time.xlsx", sheet="1 - Elite Party Services - M2")
+```
+```{r}
+M2_Data
+```
+
+```{r}
+# reading m2 data dictionary 
+M2_DD <- read_excel("1 - Elite Party Services - M2 - Change Over Time.xlsx", sheet="Data Dictionary")
+```
+
+```{r}
+M2_DD
+```
+
+```{r}
+# display all columns in M1
+names(M1_Data)
+```
+
+```{r}
+summary(M1_Data$Q4)
+```
+
+```{r}
+# merging m1 and m2
+M1_M2 = merge(M1_Data, M2_Data, by="ID")
+```
+
+```{r}
+# now M1_M2 has date additional to M1
+M1_M2
+```
+```{r}
+# seperating age data for visualization
+Age_Date = M1_M2[, c("Date", "Q4")]
+```
+
+```{r}
+Age_Date
+```
+
+```{r}
+# generating average ages for dates from responses
+Ages_grouped_by_date <- Age_Date %>%
+  arrange(Date) %>%
+  group_by(Date) %>%
+  summarize(Q4_mean = mean(Q4, na.rm = TRUE)) 
+```
+
+```{r}
+Ages_grouped_by_date
+```
+
+```{r}
+# how ages in responses change by date
+plot <- ggplot(Ages_grouped_by_date, aes(x = Date, y = Q4_mean)) +
+  geom_line() +
+  labs(x = NULL, y = "Age of Target Customers", title = "Average Age of Target Customers for the Elite Party Services based on Survey Date") +
+  theme_minimal()
+plot
+
+# Save the plot to a file (adjust filename as needed)
+ggsave(filename = "Average Age based on Survey Date - Elite Party Services-R.png", plot = plot, width = 8, height = 6)
+
+```
+
+```{r}
+# Data insights on target groups by education
+edu_plot <- ggplot(M1_M2, aes(x = factor(Q5))) +
+  geom_bar(fill = 'skyblue', color = 'black') +
+  labs(x = 'Education', y = 'Sales', title = 'Bar Plot of Education') +
+  theme_minimal() +
+  scale_x_discrete(labels = c('Some high school', 'High school diploma', 'Some college', '4-year undergraduate degree', 'Masters degree or higher', 'Doctorate'), breaks = c(1, 2, 3, 4, 5, 6)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+edu_plot
+```
+
+```{r}
+# Data insights on target groups by ethnicities
+eth_plot <- ggplot(M1_M2, aes(x = factor(Q3))) +
+  geom_bar(color = 'black') +
+  labs(x = 'Ethnicity', y = 'Responses', title = 'Bar Plot of Ethnicity') +
+  theme_minimal() +
+  scale_x_discrete(labels = c('American Indian', 'African American', 'Mexican American', 'Other Hispanic', 'Asian', 'Southeast Asian', 'Pacific Islander', 'Filipino', 'Multiple Ethnicities', 'White', 'Other/Not Stated', 'International', 'Prefer not to say'), breaks = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggsave(filename = "Ethnicity_Bar_Plot_R.png", plot = plot, width = 8, height = 6)
+
+# Display the plot
+eth_plot
+```
+```{r}
+# overall responses trend
+Grouped_by_date <- M1_M2 %>%
+  group_by(Date) %>%
+  summarize(Responses = n())
+Grouped_by_date
+```
+```{r}
+# data insights on responses trend
+res_trnd_plot <- ggplot(Grouped_by_date, aes(x = Date, y = Responses)) +
+  geom_line() +
+  labs(x = NULL, y = "Responses Count", title = "Responses Trend in 2022") +
+  theme_minimal()
+
+# Set the plot size (optional)
+ggsave(filename = "Sales-trend-2022.png", plot = res_trnd_plot, width = 8, height = 6)
+res_trnd_plot
+```
+
+```{r}
+# changing income groups by time
+Annual_Income_Date <- M1_M2[, c('Date', 'Q6')]
+Annual_Income_grouped_by_date <- aggregate(Q6 ~ Date, data = Annual_Income_Date, FUN = mean)
+y_labels <- c("$39,999 or less", "$40,000 to $49,999", "$50,000 to $59,999", "$60,000 to $69,999",
+               "$70,000 to $79,999", "$80,000 to $89,999", "$90,000 to $99,999", "$100,000 or more",
+               "Prefer not to disclose")
+y_ticks <- seq(1, length(y_labels))
+y_ticks_labels <- y_labels
+
+income_plot = ggplot(M1_M2, aes(x = Date, y = Q6)) +
+  geom_line() +  # Add a line
+  labs(x = 'Date', y = 'Average Annual Income', title = 'Average Annual Income Over Time') +
+  theme_minimal()
+income_plot + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+income_plot
+ggsave(filename = "Average_Annual_Income_Trend.png", plot = plot, width = 8, height = 6)
+```
