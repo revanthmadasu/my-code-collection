@@ -1,0 +1,381 @@
+---
+title: "A3-Elite_Party_services"
+output: html_document
+date: "2023-09-29"
+---
+
+```{r}
+if(!require("tidyverse")) install.packages("tidyverse")
+if(!require("fs")) install.packages("fs")
+if(!require("scales")) install.packages("scales")
+if (!require("readxl")) install.packages("readxl")
+if (!require("ggplot2")) install.packages("ggplot2")
+if (!require("gridExtra")) install.packages("gridExtra")
+if(!require("dplyr")) install.packages("dplyr")
+install.packages("viridis")
+```
+
+```{r}
+library(tidyverse)
+library(fs)
+library(scales)
+library(readxl)
+library(ggplot2)
+library(gridExtra)
+library(dplyr)
+library(viridis)
+```
+
+```{r}
+getwd()
+```
+
+```{r}
+# listing files
+list.files()
+```
+
+```{r}
+M1_sheet_names <- excel_sheets("1 - Elite Party Services - M1 - Initial dataset.xlsx")
+M2_sheet_names <- excel_sheets("1 - Elite Party Services - M2 - Change Over Time.xlsx")
+M3_sheet_names <- excel_sheets("1 - Elite Party Services - M3 - Data Composition.xlsx")
+print(M1_sheet_names)
+print(M2_sheet_names)
+print(M3_sheet_names)
+```
+```{r}
+# importing data
+M1_Data <- read_excel("1 - Elite Party Services - M1 - Initial dataset.xlsx", sheet="1 - Elite Party Services - M1")
+M2_Data <- read_excel("1 - Elite Party Services - M2 - Change Over Time.xlsx", sheet="1 - Elite Party Services - M2")
+M3_Data <- read_excel("1 - Elite Party Services - M3 - Data Composition.xlsx", sheet="1 - Elite Party Services - M3")
+print(M1_Data)
+print(M2_Data)
+print(M3_Data)
+```
+
+```{r}
+# merging all data
+M1_M2 <- merge(M1_Data, M2_Data, by="ID")
+M1_M2_M3 <- merge(M1_M2, M3_Data, by="ID")
+print(M1_M2_M3)
+```
+
+```{r}
+# Insights of people's interest on Elite Party Services
+grouped_interests <- table(M1_M2_M3$Q8)
+grouped_interests <- data.frame(Q8 = as.numeric(names(grouped_interests)), counts = as.numeric(grouped_interests))
+res_id_to_label <- c("-2" = "Very Unlikely", "-1" = "Unlikely", "0" = "Undecided", "1" = "Likely", "2" = "Very Likely")
+grouped_interests$likelihood <- res_id_to_label[as.character(grouped_interests$Q8)]
+print(grouped_interests)
+sum_groups <- sum(grouped_interests$counts)
+counts = grouped_interests$counts
+grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+```
+
+```{r}
+
+
+colors_map <- c("-2" = "red", "-1" = "orange", "0" = "yellow", "1" = "blue", "2" = "green")
+
+# Create pie chart
+pie_chart <- ggplot(grouped_interests, aes(x = "", y = counts, fill = as.factor(Q8))) +
+  ggtitle("People Likelihood") +
+  geom_text(aes(x = 1.5, label = grouped_interests_percent), position = position_stack(vjust = 0.5)) +coord_polar("y") + 
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y") +
+  scale_fill_manual(values = colors_map) +
+  theme_void() +
+  theme(legend.position = "bottom")
+
+# Add white circle
+
+# Save the pie chart as an image
+ggsave("A3-Likelihood-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+
+# View the pie chart
+print(pie_chart)
+```
+
+```{r}
+grouped_interests <- table(M1_M2_M3$Q8)
+grouped_interests <- data.frame(Q8 = as.numeric(names(grouped_interests)), counts = as.numeric(grouped_interests))
+res_id_to_label <- c("-2" = "Very Unlikely", "-1" = "Unlikely", "0" = "Undecided", "1" = "Likely", "2" = "Very Likely")
+grouped_interests$likelihood <- res_id_to_label[as.character(grouped_interests$Q8)]
+likelihood <- grouped_interests$likelihood
+print(grouped_interests)
+sum_groups <- sum(grouped_interests$counts)
+counts = grouped_interests$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_interests_percent <- percent(counts/sum_groups)
+
+colors_map <- c("-2" = "red", "-1" = "orange", "0" = "yellow", "1" = "blue", "2" = "green")
+
+# Create pie chart
+pie_chart <- ggplot(grouped_interests, aes(x = "", y = counts, fill = grouped_interests$likelihood)) +
+  geom_col(color = "white") +
+  ggtitle("People Likelihood") +
+  geom_text(aes(x = 1.5, label = grouped_interests_percent), position = position_stack(vjust = 0.5)) + 
+  coord_polar("y") + 
+  scale_fill_brewer(palette = 'Set1') + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.title=element_blank())
+
+# Add white circle
+
+# Save the pie chart as an image
+ggsave("A3-Likelihood-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+
+# View the pie chart
+print(pie_chart)
+```
+
+```{r}
+grouped_seasons <- table(M1_M2_M3$Q9)
+grouped_seasons <- data.frame(Q9 = as.numeric(names(grouped_seasons)), counts = as.numeric(grouped_seasons))
+res_id_to_label <- c("0" = "Winter", "1" = "Spring","2" = "Summer","3" = "Fall")
+grouped_seasons$seasons <- res_id_to_label[as.character(grouped_seasons$Q9)]
+seasons <- grouped_seasons$seasons
+print(grouped_seasons)
+sum_groups <- sum(grouped_seasons$counts)
+counts = grouped_seasons$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_seasons_percent <- percent(counts/sum_groups)
+
+
+# Create pie chart
+pie_chart <- ggplot(grouped_seasons, aes(x = "", y = counts, fill = seasons)) +
+  geom_col(color = "white") +
+  ggtitle("Seasonal Usage") +
+  geom_text(aes(x = 1.5, label = grouped_seasons_percent), position = position_stack(vjust = 0.5)) + 
+  coord_polar("y") + 
+  scale_fill_brewer(palette = 'Set1') + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.title=element_blank())
+
+
+# Save the pie chart as an image
+ggsave("A3-Seasonal-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+
+# View the pie chart
+print(pie_chart)
+```
+
+```{r}
+grouped_internet <- table(M1_M2_M3$Q12)
+grouped_internet <- data.frame(Q12 = as.numeric(names(grouped_internet)), counts = as.numeric(grouped_internet))
+res_id_to_label <- c('1' = 'Never', '2' = 'Less than 1 hour', '3' = '1 to almost 3 hours', 
+                     '4' = '3 to almost 5 hours', '5' = '5 to almost 7 hours', 
+                     '6' = '7 to almost 9 hours', '7' = '9 to almost 11 hours', 
+                     '8' = '11 or more hours')
+grouped_internet$internet <- res_id_to_label[as.character(grouped_internet$Q12)]
+internet <- grouped_internet$internet
+print(grouped_internet)
+sum_groups <- sum(grouped_internet$counts)
+counts = grouped_internet$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_internet_percent <- percent(counts/sum_groups)
+
+
+# Create pie chart
+pie_chart <- ggplot(grouped_internet, aes(x = "", y = counts, fill = internet)) +
+  geom_col(color = "white") +
+  ggtitle("Internet Usage") +
+  geom_text(aes(x = 1.5, label = grouped_internet_percent), position = position_stack(vjust = 0.5)) + 
+  coord_polar("y") + 
+  scale_fill_brewer(palette = 'Set1') + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.title=element_blank())
+
+
+# Save the pie chart as an image
+ggsave("A3-Internet-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+
+# View the pie chart
+print(pie_chart)
+
+```
+
+```{r}
+M1_M2_M3_Likely <- subset(M1_M2_M3_Likely, Q8 %in% c(1, 2))
+grouped_internet <- table(M1_M2_M3_Likely$Q12)
+grouped_internet <- data.frame(Q12 = as.numeric(names(grouped_internet)), counts = as.numeric(grouped_internet))
+res_id_to_label <- c('1' = 'Never', '2' = 'Less than 1 hour', '3' = '1 to almost 3 hours', 
+                     '4' = '3 to almost 5 hours', '5' = '5 to almost 7 hours', 
+                     '6' = '7 to almost 9 hours', '7' = '9 to almost 11 hours', 
+                     '8' = '11 or more hours')
+grouped_internet$internet <- res_id_to_label[as.character(grouped_internet$Q12)]
+internet <- grouped_internet$internet
+print(grouped_internet)
+sum_groups <- sum(grouped_internet$counts)
+counts = grouped_internet$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_internet_percent <- percent(counts/sum_groups)
+
+
+# Create pie chart
+pie_chart <- ggplot(grouped_internet, aes(x = "", y = counts, fill = internet)) +
+  geom_col(color = "white") +
+  ggtitle("Internet Usage - Likely ") +
+  geom_text(aes(x = 1.5, label = grouped_internet_percent), position = position_stack(vjust = 0.5)) + 
+  coord_polar("y") + 
+  scale_fill_brewer(palette = 'Set1') + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.title=element_blank())
+
+
+# Save the pie chart as an image
+ggsave("A3-Internet_likely-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+
+# View the pie chart
+print(pie_chart)
+```
+
+```{r}
+M1_M2_M3_UnLikely <- subset(M1_M2_M3, Q8 %in% c(-1, -2))
+grouped_internet <- table(M1_M2_M3_UnLikely$Q12)
+grouped_internet <- data.frame(Q12 = as.numeric(names(grouped_internet)), counts = as.numeric(grouped_internet))
+res_id_to_label <- c('1' = 'Never', '2' = 'Less than 1 hour', '3' = '1 to almost 3 hours', 
+                     '4' = '3 to almost 5 hours', '5' = '5 to almost 7 hours', 
+                     '6' = '7 to almost 9 hours', '7' = '9 to almost 11 hours', 
+                     '8' = '11 or more hours')
+grouped_internet$internet <- res_id_to_label[as.character(grouped_internet$Q12)]
+internet <- grouped_internet$internet
+print(grouped_internet)
+sum_groups <- sum(grouped_internet$counts)
+counts = grouped_internet$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_internet_percent <- percent(counts/sum_groups)
+
+
+# Create pie chart
+pie_chart <- ggplot(grouped_internet, aes(x = "", y = counts, fill = internet)) +
+  geom_col(color = "white") +
+  ggtitle("Internet Usage - Unlikely ") +
+  geom_text(aes(x = 1.5, label = grouped_internet_percent), position = position_stack(vjust = 0.5)) + 
+  coord_polar("y") + 
+  scale_fill_brewer(palette = 'Set1') + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.title=element_blank())
+
+
+# Save the pie chart as an image
+ggsave("A3-Internet_unlikely-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+
+# View the pie chart
+print(pie_chart)
+```
+
+```{r}
+grouped_ethnicity <- table(M1_M2_M3$Q3)
+grouped_ethnicity <- data.frame(Q3 = as.numeric(names(grouped_ethnicity)), counts = as.numeric(grouped_ethnicity))
+res_id_to_label <- c('1' = 'American Indian', '2' = 'African American', '3' = 'Mexican American', 
+                     '4' = 'Other Hispanic', '5' = 'Asian', '6' = 'Southeast Asian', 
+                     '7' = 'Pacific Islander', '8' = 'Filipino', '9' = 'Multiple Ethnicities', 
+                     '10' = 'White', '11' = 'Other/Not Stated', '12' = 'International', 
+                     '13' = 'Prefer not to say')
+grouped_ethnicity$ethnicity <- res_id_to_label[as.character(grouped_ethnicity$Q3)]
+ethnicity <- grouped_ethnicity$ethnicity
+print(grouped_ethnicity)
+sum_groups <- sum(grouped_ethnicity$counts)
+counts = grouped_ethnicity$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_ethnicity_percent <- percent(counts/sum_groups)
+
+
+# Create pie chart
+pie_chart <- ggplot(grouped_ethnicity, aes(x = "", y = counts, fill = ethnicity)) +
+  geom_col(color = "white") +
+  ggtitle("Ethnicities") +
+  geom_text(aes(x = 1.5, label = grouped_ethnicity_percent), position = position_stack(vjust = 0.5)) + 
+  coord_polar("y") + 
+  scale_fill_viridis_d() +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.title=element_blank())
+
+
+# Save the pie chart as an image
+ggsave("A3-Ethnicities-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+
+# View the pie chart
+print(pie_chart)
+```
+
+```{r}
+M1_M2_M3_Likely <- subset(M1_M2_M3, Q8 %in% c(1, 2))
+grouped_ethnicity <- table(M1_M2_M3_Likely$Q3)
+grouped_ethnicity <- data.frame(Q3 = as.numeric(names(grouped_ethnicity)), counts = as.numeric(grouped_ethnicity))
+res_id_to_label <- c('1' = 'American Indian', '2' = 'African American', '3' = 'Mexican American', 
+                     '4' = 'Other Hispanic', '5' = 'Asian', '6' = 'Southeast Asian', 
+                     '7' = 'Pacific Islander', '8' = 'Filipino', '9' = 'Multiple Ethnicities', 
+                     '10' = 'White', '11' = 'Other/Not Stated', '12' = 'International', 
+                     '13' = 'Prefer not to say')
+grouped_ethnicity$ethnicity <- res_id_to_label[as.character(grouped_ethnicity$Q3)]
+ethnicity <- grouped_ethnicity$ethnicity
+print(grouped_ethnicity)
+sum_groups <- sum(grouped_ethnicity$counts)
+counts = grouped_ethnicity$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_ethnicity_percent <- percent(counts/sum_groups)
+
+
+# Create pie chart
+pie_chart <- ggplot(grouped_ethnicity, aes(x = "", y = counts, fill = ethnicity)) +
+  geom_col(color = "white") +
+  ggtitle("Ethnicities - Likely") +
+  geom_text(aes(x = 1.5, label = grouped_ethnicity_percent), position = position_stack(vjust = 0.5)) + 
+  coord_polar("y") + 
+  scale_fill_viridis_d() +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.title=element_blank())
+
+
+# Save the pie chart as an image
+ggsave("A3-Ethnicities_Likely-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+
+# View the pie chart
+print(pie_chart)
+```
+
+```{r}
+M1_M2_M3_Undecided <- subset(M1_M2_M3, Q8 %in% c(0))
+grouped_ethnicity <- table(M1_M2_M3_UnLikely$Q3)
+grouped_ethnicity <- data.frame(Q3 = as.numeric(names(grouped_ethnicity)), counts = as.numeric(grouped_ethnicity))
+res_id_to_label <- c('1' = 'American Indian', '2' = 'African American', '3' = 'Mexican American', 
+                     '4' = 'Other Hispanic', '5' = 'Asian', '6' = 'Southeast Asian', 
+                     '7' = 'Pacific Islander', '8' = 'Filipino', '9' = 'Multiple Ethnicities', 
+                     '10' = 'White', '11' = 'Other/Not Stated', '12' = 'International', 
+                     '13' = 'Prefer not to say')
+grouped_ethnicity$ethnicity <- res_id_to_label[as.character(grouped_ethnicity$Q3)]
+ethnicity <- grouped_ethnicity$ethnicity
+print(grouped_ethnicity)
+sum_groups <- sum(grouped_ethnicity$counts)
+counts = grouped_ethnicity$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_ethnicity_percent <- percent(counts/sum_groups)
+
+
+# Create pie chart
+pie_chart <- ggplot(grouped_ethnicity, aes(x = "", y = counts, fill = ethnicity)) +
+  geom_col(color = "white") +
+  ggtitle("Ethnicities - undecided") +
+  geom_text(aes(x = 1.5, label = grouped_ethnicity_percent), position = position_stack(vjust = 0.5)) + 
+  coord_polar("y") + 
+  scale_fill_viridis_d() +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.title=element_blank())
+
+
+# Save the pie chart as an image
+ggsave("A3-Ethnicities_Undecided-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+
+# View the pie chart
+print(pie_chart)
+```
