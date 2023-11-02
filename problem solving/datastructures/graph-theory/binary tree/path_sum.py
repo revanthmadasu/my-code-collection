@@ -1,6 +1,6 @@
 '''
     problem: https://leetcode.com/problems/symmetric-tree
-    concepts: trees, bfs
+    concepts: trees, dfs
     performance: 72.96% runtime, 52.85% memory
 '''
 from typing import Optional
