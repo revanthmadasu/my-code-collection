@@ -1,3 +1,8 @@
+'''
+    problem: https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/
+    concepts: linked list, two pointers
+    performance: 71.02% runtime, 61.18% memory
+'''
 from typing import Optional
 # Definition for singly-linked list.
 class ListNode:
