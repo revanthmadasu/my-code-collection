@@ -2,6 +2,7 @@
     problem: https://leetcode.com/problems/symmetric-tree
     concepts: trees, bfs
     performance: 64.72% runtime, 18.60% memory
+    #todo: improve memory
 '''
 from typing import Optional
 # Definition for a binary tree node.
