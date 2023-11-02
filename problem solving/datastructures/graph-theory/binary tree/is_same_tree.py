@@ -1,6 +1,6 @@
 '''
     problem: https://leetcode.com/problems/same-tree/
-    concepts: trees
+    concepts: trees, bfs
     performance: 56.40% runtime, 61.79% memory
 '''
 # Definition for a binary tree node.

@@ -1,6 +1,6 @@
 '''
     problem: https://leetcode.com/problems/invert-binary-tree
-    concepts: trees
+    concepts: trees, bfs
     performance: 84.84% runtime, 94.76% memory
 '''
 from typing import Optional

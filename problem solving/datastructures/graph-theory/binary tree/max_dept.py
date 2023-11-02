@@ -1,6 +1,6 @@
 '''
     Problem: https://leetcode.com/problems/maximum-depth-of-binary-tree
-    concepts: Binary Tree, Tree Traversal
+    concepts: Binary Tree, Tree Traversal, bfs
     performance: 99.80% runtime, 99.79% memory
 '''
 from typing import Optional
