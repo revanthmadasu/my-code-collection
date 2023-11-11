@@ -1,6 +1,6 @@
 '''
     Problem: https://leetcode.com/problems/minimum-window-substring/
-    concepts: Sliding Window, Two Pointers, Hash Table, String
+    concepts: BFS, Trees, Tree Traversal
     performance: 82.99% runtime, 91.45% memory
 '''
 # Definition for a Node.
