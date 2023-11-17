@@ -1,8 +1,9 @@
 '''
     Problem: https://leetcode.com/problems/rotting-oranges
     Concepts: bfs, matrix, disjointset, union-find
-    opt required - 5.11 runtime, 8.56 memory
+    performance: 5.11 runtime, 8.56 memory
     remark: worst implementation
+    #todo: improve performance
 '''
 from collections import defaultdict
 import math

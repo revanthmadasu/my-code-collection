@@ -1,7 +1,7 @@
 '''
     Problem: https://leetcode.com/problems/number-of-islands
     Concepts: matrix, disjointset, union-find
-    opt required - 5.10 runtime, 7.74 memory
+    performance: 5.10% runtime, 7.74% memory
     todo: improve performance
 '''
 from typing import List
