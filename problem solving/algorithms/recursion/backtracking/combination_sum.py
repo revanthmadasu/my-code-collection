@@ -1,4 +1,10 @@
 from typing import List
+'''
+    Problem: https://leetcode.com/problems/combination-sum
+    Concepts: Recursion, Backtracking
+    Performance: 5.83% runtime, 7.09% memory
+    #todo: improve performance
+'''
 class Solution:
     def combinationSum(self, candidates: List[int], target: int, acc = []) -> List[List[int]]:
         sols = self.backtrack(candidates, target)
