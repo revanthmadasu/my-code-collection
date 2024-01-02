@@ -1,0 +1,387 @@
+# Team, insert the required components wherever indicated below on the raw, original version of this R codebook .Rmd file.
+
+# TCP_R-MCIS6333_002
+
+# Data Visualization Programming Team Course Project
+# CLIENT NAME: HOORAY!
+# USE CASE: ELITE PARTY SERVICES
+
+# Created by:
+# TEAM-1
+# TEAM NAME: DATAVANA
+# TEAM MEMBERS:
+# REVANTH KUMAR MADASU
+# ANUSHA PAKKIRU
+
+# Created for Dr. Esther Mead, SAU Fall 2023
+
+# Created November 18, 2023
+
+#========================SECTION SEPARATOR
+
+# Student team, below this section, insert all code for data processing and data visualization (DV) that you used for any and all DVs that you created in R and inserted into your TCP OPR/PRES (you must have at least one R DV and no more than 9 R DVs).
+# You must include all R code below that in necessary to recreate your DVs within the R web-based development environment (Posit Cloud RStudio Cloud): https://login.rstudio.cloud/login?redirect=%2F
+# You must also insert optimized R code documentation lines throughout this notebook.
+# Read the TCP Grading Rubric on Blackboard to prevent irreversible point penalties.
+# Point penalties will be applied to all teams equally and are non-negotiable. All teams are treated equally.
+
+#========================SECTION SEPARATOR
+
+# installation of packages
+if(!require("ggplot2")) install.packages("ggplot2", dependencies = TRUE) # For installing a package called "ggplot2" for plotting and to ensure that it also installs other things that ggplot2 needs (dependencies).
+if(!require("dplyr")) install.packages("dplyr") # For installing a package called "dplyr" for data manipulation and transformation.
+if(!require("readxl")) install.packages("readxl")
+if (!require("zoo")) install.packages("zoo")
+if(!require("rmarkdown")) install.packages("rmarkdown") # For installing a package called "rmarkdown" for creating dynamic documents in various formats, including HTML, PDF, Word, and more.
+if(!require("ggplot2")) install.packages("ggplot2", dependencies = TRUE) # For installing a package called "ggplot2" for plotting and to ensure that it also installs other things that ggplot2 needs (dependencies).
+if(!require("tidyverse")) install.packages("tidyverse") # For installing a package called "tidyverse" for data processing.
+if(!require("scales")) install.packages("scales") # For installing a package called "scales" for creating chart axes labels and legends (internal scaling infrastructure of visualizations).
+if(!require("GGally")) install.packages("GGally") # For installing a package called "GGally" for creating parallel coordinates.
+if(!require("assertive")) install.packages("assertive") # For installing a package called "assertive" for iteratively checking R code integrity.
+if(!require("testthat")) install.packages("testthat") # For installing a package called "testthat" for iteratively checking our R code for errors.
+if(!require("remotes")) install.packages("remotes") # For installing a package called "remotes" to allow us to grab things that are hosted at a url.
+remotes::install_github("ricardo-bion/ggradar", force=TRUE) # Using a package called remotes for force-installing a package called "ggradar" from a developer's github.
+if(!require("fmsb")) install.packages("fmsb") # For installing a package called "fmsb" for creating radar charts.
+if(!require("gridExtra")) install.packages("gridExtra") # For installing a package called "gridExtra" for use in creating scatter plots.
+if(!require("stringr")) install.packages("stringr") # For installing a package called "stringr" for use in creating scatter plots.
+if(!require("data.table")) install.packages("data.table") # For installing a package called "data.table" for creating pivot tables.
+if(!require("plotly")) install.packages("plotly")
+if(!require("leaflet")) install.packages("leaflet") # An if statement is used for checking the condition (!) that a set of code will require that a package called "leaflet" is installed for creating dynamic online maps and if so using the install.packages() function to install the package.
+if(!require("htmlwidgets")) install.packages("htmlwidgets") # An if statement is used for checking the condition (!) that a set of code will require that a package called "htmlwidgets" is installed for providing a framework for creating R bindings to JavaScript libraries for interactive visualizations and if so using the install.packages() function to install the package.
+
+#========================SECTION SEPARATOR
+
+# importing libraries
+library("readxl")
+library("zoo")
+library(rmarkdown) # For loading a library called "rmarkdown" for creating documents
+library(ggplot2) # For loading a library called "ggplot2" for plotting
+library(dplyr) # For loading a library called "dplyr" for data manipulation
+library(tidyverse) # For loading a library called "tidyverse" for data processing.
+library(scales) # For loading a library called "scales" for creating chart axes labels and legends (internal scaling infrastructure of visualizations).
+library(GGally) # For loading a library called "GGally" for creating parallel coordinates.
+library(ggradar) # For loading a library called "ggradar" for creating radar charts.
+library(fmsb) # For loading a library called "fmsb" for creating radar charts.
+library(testthat) # For loading a library called "testthat" for iteratively checking our R code for errors.
+library(remotes) # For loading a library called "remotes" to allow us to grab things that are hosted at a url.
+#library(assertive, warn.conflicts = FALSE) # For loading a library called "assertive" to iteratively check R code integrity, but to prevent it from telling you each time there might be a conflict between libraries or packages.
+library(gridExtra) # For loading a library called "gridExtra" for use in creating scatter plots.
+library(stringr) # For loading a library called "stringr" for use in creating scatter plots.
+library(data.table) # For loading a library called "data.table" for creating pivot tables.
+library(plotly)
+library(leaflet) # The library() function is used to load a package called "leaflet" for creating dynamic online maps.
+library(htmlwidgets) # The library() function is used to load a package called "htmlwidgets" for providing a framework for creating R bindings to JavaScript libraries for interactive visualizations.
+
+#========================SECTION SEPARATOR
+getwd()
+# Load data from Excel files
+M1 <- read_excel("./data/1 - Elite Party Services - M1 - Initial dataset.xlsx")
+M2 <- read_excel("./data/1 - Elite Party Services - M2 - Change Over Time.xlsx")
+M3 <- read_excel("./data/1 - Elite Party Services - M3 - Data Composition.xlsx")
+M4 <- read_excel("./data/1 - Elite Party Services - M4 - Data Distributions.xlsx")
+M5 <- read_excel("./data/1 - Elite Party Services - M5 - Group Comparisons.xlsx")
+M6 <- read_excel("./data/1 - Elite Party Services - M6 - Relationships.xlsx")
+
+# Merge data frames
+M1_M2 <- merge(M1, M2, by="ID")
+M1_M2_M3 <- merge(M1_M2, M3, by="ID")
+M1_M2_M3_M4 <- merge(M1_M2_M3, M4, by="ID")
+M1_M2_M3_M4_M5 <- merge(M1_M2_M3_M4, M5, by="ID")
+M1_M2_M3_M4_M5_M6 <- merge(M1_M2_M3_M4_M5, M6, by="ID")
+df <- M1_M2_M3_M4_M5_M6
+
+#========================SECTION SEPARATOR
+
+# Line Plot
+df$act_date <- as.Date(df$Date)
+df_likelihood_changing <- df[c('act_date', 'Q8')]
+df_likely <- df_likelihood_changing[df_likelihood_changing$Q8 %in% c(1, 2), ]
+
+# Create a sequence of dates for all months
+all_months <- data.frame(Date = seq(as.Date(min(df$Date)), as.Date(max(df$Date), format="%Y-%m-%d"), by="1 month"))
+
+df_likely$month_year <- as.yearmon(df_likely$act_date)
+print(df_likely)
+liklihood_grouped_by_date <- df_likely %>%
+  group_by(month_year) %>%
+  summarise(Q8_count = n())
+# how ages in responses change by date
+plot <- ggplot(liklihood_grouped_by_date, aes(x = month_year, y = Q8_count)) +
+  geom_line() +
+  labs(x = NULL, y = "Likelihood of Using Elite Party Services", title = "Likelihood of Using Elite Party Services based on Survey Date") +
+  theme_minimal()
+ggsave("1-likelihood_by_res_date-lineplot.png", plot = plot, width = 12, height = 7, dpi = 300)
+plot
+
+
+
+#========================SECTION SEPARATOR
+# Pie Chart
+
+grouped_interests <- table(M1_M2_M3$Q8)
+grouped_interests <- data.frame(Q8 = as.numeric(names(grouped_interests)), counts = as.numeric(grouped_interests))
+res_id_to_label <- c("-2" = "Very Unlikely", "-1" = "Unlikely", "0" = "Undecided", "1" = "Likely", "2" = "Very Likely")
+grouped_interests$likelihood <- res_id_to_label[as.character(grouped_interests$Q8)]
+likelihood <- grouped_interests$likelihood
+print(grouped_interests)
+sum_groups <- sum(grouped_interests$counts)
+counts = grouped_interests$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_interests_percent <- percent(counts/sum_groups)
+
+colors_map <- c("-2" = "red", "-1" = "orange", "0" = "yellow", "1" = "blue", "2" = "green")
+
+# Create pie chart
+pie_chart <- ggplot(grouped_interests, aes(x = "", y = counts, fill = grouped_interests$likelihood)) +
+  geom_col(color = "white") +
+  ggtitle("People Likelihood") +
+  geom_text(aes(x = 1.5, label = grouped_interests_percent), position = position_stack(vjust = 0.5)) + 
+  coord_polar("y") + 
+  scale_fill_brewer(palette = 'Set1') + 
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme(legend.title=element_blank())
+
+# Save the pie chart as an image
+ggsave("2-PeopleInterests-R.png", plot = pie_chart, width = 12, height = 7, dpi = 300)
+pie_chart
+
+#========================SECTION SEPARATOR
+# Donut Chart
+grouped_seasons <- table(M1_M2_M3$Q9)
+grouped_seasons <- data.frame(Q9 = as.numeric(names(grouped_seasons)), counts = as.numeric(grouped_seasons))
+res_id_to_label <- c("0" = "Winter", "1" = "Spring","2" = "Summer","3" = "Fall")
+grouped_seasons$seasons <- res_id_to_label[as.character(grouped_seasons$Q9)]
+seasons <- grouped_seasons$seasons
+print(grouped_seasons)
+sum_groups <- sum(grouped_seasons$counts)
+counts = grouped_seasons$counts
+# grouped_interests_percent <- grouped_interests$counts / sum_groups * 100
+grouped_seasons_percent <- percent(counts/sum_groups)
+
+grouped_seasons$fraction = grouped_seasons$counts / sum(grouped_seasons$counts)
+grouped_seasons$ymax = cumsum(grouped_seasons$fraction)
+grouped_seasons$ymin = c(0, head(grouped_seasons$ymax, n=-1))
+donut_plot <- ggplot(grouped_seasons, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=seasons)) +
+     geom_rect() +
+     coord_polar(theta="y") + # Try to remove that to understand how the chart is built initially
+     xlim(c(2, 4)) + # Try to remove that to see how to make a pie chart
+      ggtitle("Seasonal Usage") + 
+      geom_text(aes(x = 1.5, y = 1.5, label = grouped_seasons_percent),
+            position = position_stack(vjust = 0.5))
+ggsave("3-seasonal_usage-R.png", plot = donut_plot, width = 12, height = 7, dpi = 300)
+donut_plot
+
+
+#========================SECTION SEPARATOR
+# Bar Plot
+# Data insights on target groups by education
+edu_plot <- ggplot(M1_M2, aes(x = factor(Q5))) +
+  geom_bar(fill = 'skyblue', color = 'black') +
+  labs(x = 'Education', y = 'Sales', title = 'Bar Plot of Education') +
+  theme_minimal() +
+  scale_x_discrete(labels = c('Some high school', 'High school diploma', 'Some college', '4-year undergraduate degree', 'Masters degree or higher', 'Doctorate'), breaks = c(1, 2, 3, 4, 5, 6)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+ggsave("4-education_bar-R.png", plot = edu_plot, width = 12, height = 7, dpi = 300)
+edu_plot
+
+#========================SECTION SEPARATOR
+# Histogram
+income_ranges <- c(
+  '39,999 or less',
+  '40,000 to 49,999',
+  '50,000 to 59,999',
+  '60,000 to 69,999',
+  '70,000 to 79,999',
+  '80,000 to 89,999',
+  '90,000 to 99,999',
+  '100,000 or more',
+  'Prefer not to disclose'
+)
+g <-ggplot(data = M1_M2_M3_M4, aes(x = factor(Q6, levels = 1:9, labels = income_ranges))) +
+  geom_bar(stat = 'count', fill = 'skyblue', color = 'black') +
+  ggtitle("Distribution of Customer's Income") +
+  xlab("Income Range") +
+  ylab("Customer Count") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = scales::comma)
+g
+ggsave("5-Income-Distribution-Histogram-R.png", plot = g, width = 12, height = 7,dpi = 110)
+
+
+#========================SECTION SEPARATOR
+# Box Plot
+internet_usage_ranges <- c('Never', '< 1 hour', '1-3 hours', '3-5 hours', '5-7 hours', '7-9 hours', '9-11 hours', '>= 11 hours')
+
+df_M1_M2_M3_M4 <- M1_M2_M3_M4 %>%
+  mutate(internet_usage = internet_usage_ranges[Q12])
+
+g <- ggplot(data = df_M1_M2_M3_M4, aes(x = internet_usage, y = Q4, fill = as.factor(Q12))) +
+  geom_boxplot() +
+  scale_y_continuous(labels = scales::comma) +
+  ggtitle("Revolving Internet Usage by Age") +
+  xlab("") +
+  ylab("Age") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(legend.position = "none")
+g
+ggsave("6-Revolving Internet Usage by Age.png", plot = g,width = 12, height = 7)
+
+#========================SECTION SEPARATOR
+# Stacked Bar Plot
+df <- M1_M2_M3_M4_M5
+
+# Extracting columns Q3, Q19, and Q17
+x <- df$Q3
+y1 <- df$Q19
+y2 <- df$Q17
+
+# Function to calculate party_type_pref
+get_party_type <- function(Q19, Q17) {
+  party_type <- ""
+  if (Q19 > 0 && Q17 > 0) {
+    party_type <- "Both"
+  } else if (Q19 > 0) {
+    party_type <- "Themed"
+  } else if (Q17 > 0) {
+    party_type <- "Destination"
+  } else {
+    party_type <- "NotInterested"
+  }
+  return(party_type)
+}
+
+
+df$party_type_pref <- mapply(get_party_type, df$Q19, df$Q17)
+
+
+grouped_data <- as.data.frame(table(df$Q3, df$party_type_pref))
+colnames(grouped_data) <- c("Q3", "party_type_pref", "count")
+
+
+
+ethnicities <- unique(grouped_data$Q3)
+
+#party_theme_by_ethnicity <- as.data.frame(nodes)
+ethnicities <- unique(grouped_data$Q3)
+
+nodes <- list()
+nodes_df = data.frame(eth=numeric(0), Both = numeric(0), Themed= numeric(0),NotInterested= numeric(0), Destination= numeric(0))
+
+for (ethnicity in ethnicities) {
+
+  node <- list(
+    NotInterested = 0,
+    Themed = 0,
+    Destination = 0,
+    Both = 0,
+    eth = as.numeric(ethnicity)
+  )
+  
+
+  ethnicity_data <- grouped_data[grouped_data$Q3 == ethnicity, ]
+  
+
+  for (i in 1:nrow(ethnicity_data)) {
+    row <- ethnicity_data[i, ]
+    party_type <- row$party_type_pref
+    node[[party_type]] <- row$count
+  }
+  
+
+  nodes <- c(nodes, list(node))
+  nodes_df <- nodes_df %>% add_row(eth=node[['eth']], Both = node[['Both']], Themed = node[['Themed']], NotInterested = node[['NotInterested']], Destination = node[['Destination']])
+}
+
+
+party_theme_by_ethnicity <- nodes_df
+
+fig <- plot_ly(party_theme_by_ethnicity, x = ~eth, y = ~NotInterested, name = 'NotInterested', type = 'bar', mode = 'none', stackgroup = 'one', fillcolor = '#F5FF8D')
+fig <- fig %>% add_trace(y = ~Destination, name = 'Destination', fillcolor = '#50CB86')
+fig <- fig %>% add_trace(y = ~Themed, name = 'Themed', fillcolor = '#4C74C9')
+fig <- fig %>% add_trace(y = ~Both, name = 'Both')
+fig <- fig %>% layout(title = 'Party Preference by Ethnicity', margin=(b=5), barmode = 'stack', 
+         xaxis = list(title = "", showgrid = FALSE, tickangle = 45,
+                                   categoryorder = "array",
+                                   categoryarray = c('American Indian', 'African American', 'Mexican American', 
+                                                     'Other Hispanic', 'Asian', 'Southeast Asian', 
+                                                     'Pacific Islander', 'Filipino', 'Multiple Ethnicities', 
+                                                     'White', 'Other/Not Stated', 'International', 'Prefer not to say')),
+         yaxis = list(title = "Responses",
+                      showgrid = FALSE))
+fig
+
+#========================SECTION SEPARATOR
+#Parallel Coordinates plot
+df <- M1_M2_M3_M4_M5_M6
+df_ethnicity_food <- df[c('Q3', 'Q40', 'Q41', 'Q42', 'Q43', 'Q44', 'Q45')]
+pivot <- aggregate(cbind(Q40, Q41, Q42, Q43, Q44, Q45) ~ Q3, data = df, sum)
+dietary_preference_by_ethnicity <- data.frame(pivot)
+par_plot <- ggparcoord(data = dietary_preference_by_ethnicity, columns = 2:7,
+           groupColumn = 'Q3', scale = "globalminmax",
+           title = "Comparison of Dietary Preference Based on Ethnicity of User Responses") +
+  theme(plot.title = element_text(size = 16)) + theme(axis.title.x=element_blank(), axis.title.y=element_blank())
+ggsave("8-DietaryPreferenceEthnicity-ParallelCoordinatesPlot-R.png", plot=par_plot,width = 10, height = 6, dpi = 300)
+par_plot
+
+#========================SECTION SEPARATOR
+# Radar Plot
+
+df <- M1_M2_M3_M4_M5_M6
+df_religion_food <- df[c('Q7', 'Q40', 'Q41', 'Q42', 'Q43', 'Q44', 'Q45')]
+pivot <- aggregate(cbind(Q40, Q41, Q42, Q43, Q44, Q45) ~ Q7, data = df, sum)
+dietary_preference_by_religion <- data.frame(pivot)
+t_dietary_pref_by_reg = t(dietary_preference_by_religion)
+t_dietary_pref_by_reg = t_dietary_pref_by_reg[-1, ]
+custom_labels <- c(1, 2, 3, 4, 5, 6)
+t_dietary_pref_by_reg <- cbind(NewColumn = custom_labels, t_dietary_pref_by_reg)
+colnames(t_dietary_pref_by_reg) <- c("DietPref","Christianity/Catholicism", "Islam", "Hinduism", "Catholicism", "Buddhism", "Judaism", "Mormonism", "No religion", "Other/Not Stated")
+df_dietary_pref_by_reg <- as.data.frame(t_dietary_pref_by_reg)
+df_dietary_pref_by_reg <- df_dietary_pref_by_reg %>%
+  mutate(DietPref = case_when(
+    DietPref == 1 ~ "Beef",
+    DietPref == 2 ~ "Poultry",
+    DietPref == 3 ~ "Pork",
+    DietPref == 4 ~ "Vegetarian",
+    DietPref == 5 ~ "Vegan",
+    DietPref == 6 ~ "Other",
+    TRUE ~ as.character(DietPref)  # Handle other cases if necessary
+  ))
+plt <- df_dietary_pref_by_reg %>%
+  ggradar(
+    font.radar = "roboto",
+    grid.label.size = 3,  # Affects the grid annotations (0%, 50%, etc.)
+    axis.label.size = 4, # Afftects the names of the variables
+    group.point.size = 3 ,  # Simply the size of the point 
+    grid.max = max(dietary_preference_by_religion)
+  ) +
+  theme_minimal() +  # You can change the theme to fit your preferences
+  theme(
+    text = element_text(size = 12),  # Adjust overall text size
+    axis.title = element_blank(),     # Remove axis title
+    axis.text = element_text(size = 10),  # Adjust axis text size
+    legend.title = element_text(size = 12),  # Adjust legend title size
+    legend.text = element_text(size = 10)    # Adjust legend text size
+  )
+plt
+ggsave("9-DietaryPreferenceReligion-RadarPlot-R.png", plot=plt,width = 10, height = 6, dpi = 300)
+
+#========================SECTION SEPARATOR
+# Map Plot
+# Use the leaflet() function to create a map centered around San Diego using the provider Esri.WorldStreetMap to use as a basemap.
+m <- leaflet() %>%
+  setView(lng = -117.1611, lat = 32.7157, zoom = 9) %>%
+  addProviderTiles("Esri.WorldStreetMap")
+
+# Use the read_excel() function from a package called readxl to read in a file that contains the coordinates from your team's Use Case M7 dataset that Dr. Mead posted on your team's Bb File Exchange. Change the filename to whatever yours is called. In this example code it is for a random use case.
+coordinates <- read_excel("./data/1 - Elite Party Services - M7 - Geographical Data.xlsx")
+
+# Use a for loop to iterate over the rows of the DataFrame and add markers.
+for (i in 1:nrow(coordinates)) {
+  m <- addMarkers(map = m,
+                  lng = coordinates$Longitude[i],
+                  lat = coordinates$Latitude[i])
+}
+
+# Use the saveWidget() function to save the map to an HTML file.
+saveWidget(m, file = "map.html", selfcontained = TRUE)
