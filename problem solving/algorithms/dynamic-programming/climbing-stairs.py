@@ -1,5 +1,7 @@
 '''
-URL: https://leetcode.com/problems/climbing-stairs/
+    problem: https://leetcode.com/problems/climbing-stairs/
+    concepts: dynamic programming, recusion
+    performance: 63.36% runtime, 99.52% memory
 '''
 from collections import defaultdict
 import sys
