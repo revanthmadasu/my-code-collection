@@ -21,4 +21,21 @@ class Solution:
 
             i += 1
         return max(lis)
+
+    # high performance - 70.48, 95.36
+    # def lengthOfLIS(self, arr: List[int]) -> int:
+    #     seqCountAry = [1 for i in arr]
+    #     n = len(arr)
+    #     maxCount = 0
+    #     for i in range(n-1, -1, -1):
+    #         maxPossibleIndex = -1
+    #         addCount = 0
+    #         for j in range(i+1, n):
+    #             if arr[j] > arr[i] and seqCountAry[j] > addCount:
+    #                 addCount = seqCountAry[j]
+    #         seqCountAry[i] += addCount
+    #         if maxCount < seqCountAry[i]:
+    #             maxCount = seqCountAry[i]
+    #     return maxCount
+        
         
