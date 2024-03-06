@@ -1,9 +1,9 @@
-from typing import List
 '''
     problem: https://leetcode.com/problems/text-justification
     concepts: arrays, strings
     performance: 29.21% runtime, 70.29% memory
 '''
+from typing import List
 import math
 class Solution:
     '''
