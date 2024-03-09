@@ -2,7 +2,7 @@
     problem: https://leetcode.com/problems/find-median-from-data-stream
     concepts: sorting
     performance: 10.96% runtime, 94.42% memory
-    #todo: improve runtime
+    heap approach in heaps folder
 '''
 class MedianFinder:
 
