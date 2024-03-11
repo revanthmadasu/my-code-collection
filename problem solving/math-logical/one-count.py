@@ -1,3 +1,8 @@
+'''
+    problem: https://leetcode.com/problems/number-of-1-bits
+    concepts: math
+    performance: 41.51% runtime, 50.62% memory
+'''
 import math
 class Solution:
     def hammingWeight(self, n: int) -> int:
