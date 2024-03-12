@@ -1,6 +1,6 @@
 '''
     problem: https://leetcode.com/problems/find-median-from-data-stream
-    concepts: heap
+    concepts: heap, two heap
     performance: 47.45% runtime, 31.84% memory
 '''
 import heapq
