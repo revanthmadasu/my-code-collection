@@ -1,6 +1,6 @@
 '''
     problem: https://leetcode.com/problems/find-peak-element/
-    concepts: 
+    concepts: binary search
     performance: 35.73% runtime, 91.16% memory
 '''
 from typing import List
