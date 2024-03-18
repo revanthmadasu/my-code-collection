@@ -1,8 +1,7 @@
 '''
     problem: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii
     concepts: dynamic programming, multi dimensional DP
-    202/214 test cases passed - memory limit exceeded.
-    use of two dimensional matrix resultls in memory limit exceeded
+    performance: 98.81% runtime, 98.19% memory
 '''
 from typing import List
 class Solution:
