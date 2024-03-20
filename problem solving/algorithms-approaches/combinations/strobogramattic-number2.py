@@ -1,21 +1,19 @@
 '''
     problem: https://leetcode.com/problems/strobogrammatic-number-ii/
     concepts: string, combinations
-    performance: 65.47% runtime, 34.72% memory
+    performance: 70.47% runtime, 82.08% memory
 '''
 from typing import List
 class Solution:
     def findStrobogrammatic(self, n: int) -> List[str]:
-        base1 = ["0", "1","8"]
-        base2 = ["11","69","88","96"]
         if n == 0:
             return []
         elif n == 1:
             return ["0","1","8"]
         elif n == 2:
-            return base2
+            return ["11","69","88","96"]
         
-        r, res = (n-1, base1) if n%2 == 1 else (n-2, ["11","69","88","96", "00"])
+        r, res = (n-1, ["0","1","8"]) if n%2 == 1 else (n-2, ["11","69","88","96", "00"])
         # base1.remove("0")
         for i in range(r//2):
             # print(f'{i}th time')
@@ -30,4 +28,4 @@ class Solution:
                 newRes.append(f'9{sub}6')
             res = newRes
         # res.remove("0"*n)
-        return list(set(res))
+        return res
