@@ -1,7 +1,7 @@
 '''
     problem: https://leetcode.com/problems/longest-absolute-file-path/
     concepts: recursion, backtracking, dfs
-    performance: 9.53% runtime, 80.58% memory
+    performance: 33.05% runtime, 80.58% memory
 '''
 import re
 class Solution:
