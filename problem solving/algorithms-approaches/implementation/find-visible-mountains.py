@@ -1,8 +1,7 @@
 '''
     problem: https://leetcode.com/problems/finding-the-number-of-visible-mountains
     concepts: monotonic stack, array, sorting
-    performance: 29.38% runtime, 7.34% memory
-    #todo: improve performance
+    performance: 43.50% runtime, 93.22% memory
 '''
 from typing import List
 class Solution:
