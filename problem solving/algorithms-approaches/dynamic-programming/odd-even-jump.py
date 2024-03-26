@@ -102,8 +102,8 @@ class Solution:
         dp = [0] * len(arr)
         dp[-1] = 3
         for i in range(len(arr)-2, -1, -1):
-            oddJumpIndex = odd_jumps[i]
-            evenJumpIndex = even_jumps[i]
+            # oddJumpIndex = odd_jumps[i]
+            # evenJumpIndex = even_jumps[i]
             if odd_jumps[i]:
                 nextJumpType = dp[odd_jumps[i]]
                 if nextJumpType in [3, 2]:
