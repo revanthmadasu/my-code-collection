@@ -1,7 +1,7 @@
 '''
     problem: https://leetcode.com/problems/odd-even-jump/
     concepts: Dynamic Programming, Monotonic Stack
-    performance: 44.58% runtime, 97.79% memory
+    performance: 59.04% runtime, 93.17% memory
 '''
 '''
 [ 0, 1,2, 3, 4, 5, 6, 7]
