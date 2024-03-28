@@ -2,6 +2,7 @@
     problem: https://leetcode.com/problems/minimum-window-subsequence
     concepts: Dynamic Programming, Multi Dimensional DP, Sliding Window
     performance: 20.61% runtime, 13.39% memory 
+    #todo - improve performance
 '''
 '''
 s1 -> column wise
@@ -27,10 +28,7 @@ class Solution:
             dp[i][-1] = float('inf')
         for r in range(len(s2)-1, -1, -1):
             for c in range(len(s1)-1, -1, -1):
-                if s1[c] == s2[r]:
-                    dp[r][c] = 1+dp[r+1][c+1]
-                else:
-                    dp[r][c] = 1 + dp[r][c+1]
+                dp[r][c] = 1 + dp[r+int(s1[c] == s2[r])][c+1]
         # print('dp matrix:')
         # print(dp)
         minSize = float('inf')
