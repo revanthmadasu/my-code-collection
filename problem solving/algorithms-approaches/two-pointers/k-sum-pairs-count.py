@@ -1,6 +1,6 @@
 '''
     Problem: https://leetcode.com/problems/max-number-of-k-sum-pairs/
-    Concepts: Dynamic Programming
+    Concepts: Two Pointers
     performance: 63.70% runtime, 77.56% memory
 '''
 from typing import List
