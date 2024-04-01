@@ -2,7 +2,7 @@
     Problem: https://leetcode.com/problems/sliding-window-median/
     Concepts: Sliding Window
     performance: 5.02% runtime, 93.31% memory
-    #todo: improve runtime -- implement insert sort
+    #todo: improve runtime
 '''
 import math
 from typing import List
@@ -19,7 +19,7 @@ class Solution:
             medians.append((window[math.ceil((k-1)/2)]+window[math.floor((k-1)/2)])/2)
         return medians
 
-# Queue implementation - timeout
+# Queue implementation - timeout: 42/43 passed
 # import math
 # from collections import deque
 # class Solution:
@@ -56,4 +56,29 @@ class Solution:
 #             # window.append(nums[i+k-1])
 #             # window.sort()
 #             # medians.append((window[math.ceil((k-1)/2)]+window[math.floor((k-1)/2)])/2)
+#         return medians
+
+# insert sort - timeout: 42/43 passed
+# import math
+# from collections import deque
+# class Solution:
+#     def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
+#         windowAry = nums[:k]
+#         windowAry.sort()
+#         medians = [(windowAry[math.ceil((k-1)/2)]+windowAry[math.floor((k-1)/2)])/2]
+#         # windowQ = deque(windowAry)
+
+#         for i in range(1, len(nums)-k+1):
+#             # print(f'window is {windowAry}')
+#             windowAry.remove(nums[i-1])
+#             inserted = False
+#             for j in range(k-1):
+#                 # print(f'j is {j}')
+#                 if windowAry[j] > nums[i+k-1]:
+#                     windowAry.insert(j, nums[i+k-1])
+#                     inserted = True
+#                     break
+#             if not inserted:
+#                 windowAry.append(nums[i+k-1])
+#             medians.append((windowAry[math.ceil((k-1)/2)]+windowAry[math.floor((k-1)/2)])/2)
 #         return medians
