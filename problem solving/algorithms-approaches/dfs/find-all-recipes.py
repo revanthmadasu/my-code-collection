@@ -1,7 +1,7 @@
 '''
     Problem: https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/
     Concepts: DFS, Recursion, Topological Sort
-    performance: 62.72% runtime, 5.89% memory
+    performance: 88.95% runtime, 7.19% memory
 '''
 from typing import List
 class Solution:
