@@ -1,7 +1,7 @@
 '''
     Problem: https://leetcode.com/problems/count-nodes-equal-to-average-of-subtree/
     Concepts: DFS, Tree, Binary Tree
-    performance: 25.29% runtime, 18.91% memory
+    performance: 55.05% runtime, 67.13% memory
 '''
 # Definition for a binary tree node.
 class TreeNode:
