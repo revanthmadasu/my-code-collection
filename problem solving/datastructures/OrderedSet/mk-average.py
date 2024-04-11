@@ -1,7 +1,7 @@
 '''
     Problem: https://leetcode.com/problems/finding-mk-average/
     Concepts: OrderedSet, Queue, Heap
-    performance: 29.40% runtime, 21.79% memory
+    performance: 17.88% runtime, 49.58% memory
 '''
 from collections import deque
 from sortedcontainers import SortedList
