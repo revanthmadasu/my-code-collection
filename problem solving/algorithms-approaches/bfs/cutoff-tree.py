@@ -1,8 +1,7 @@
 '''
     problem: https://leetcode.com/problems/cut-off-trees-for-golf-event/
     concepts: BFS, Heap
-    #incomplete: time limit exceeded - 33/55 testcases passed
-    #todo: complete it - try running multi source shortest path algorithm first to get distances instead of bfs
+    performance: 83.63% runtime, 17.63% memory
 '''
 from heapq import heappop, heappush
 from typing import List
