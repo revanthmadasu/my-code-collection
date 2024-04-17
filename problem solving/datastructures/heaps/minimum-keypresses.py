@@ -2,6 +2,7 @@
     problem: https://leetcode.com/problems/minimum-number-of-keypresses
     concepts: Heap, max heap
     performance: 18.29% runtime, 95.34% memory
+    #todo - improve runtime - try with sorting instead of heaps
 '''
 import heapq
 class Solution:
