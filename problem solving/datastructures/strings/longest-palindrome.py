@@ -1,8 +1,32 @@
 '''
     problem: https://leetcode.com/problems/longest-palindromic-substring/description
     concepts: strings, palindromes
-    runtime: 87.36/100, memory: 22.7/100
+    runtime: 46.60%, memory: 84.55%
 '''
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        maxPalindrome = ""
+        for i in range(len(s)):
+            left = right = i
+            palindromeLen = 1
+            while left-1 >= 0 and right+1 < len(s) and s[left-1] == s[right+1]:
+                left -= 1
+                right += 1
+                palindromeLen += 2
+            if palindromeLen > len(maxPalindrome):
+                maxPalindrome = s[left: right+1]
+        for i in range(len(s)-1):
+            left, right = i, i+1
+            if s[left] == s[right]:
+                palindromeLen = 2
+                while left-1 >= 0 and right+1 < len(s) and s[left-1] == s[right+1]:
+                    left -= 1
+                    right += 1
+                    palindromeLen += 2
+                if palindromeLen > len(maxPalindrome):
+                    maxPalindrome = s[left: right+1]
+        return maxPalindrome
+        
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         '''
