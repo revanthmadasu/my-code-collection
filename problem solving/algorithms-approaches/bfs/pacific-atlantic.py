@@ -1,7 +1,7 @@
 '''
     Problem: https://leetcode.com/problems/pacific-atlantic-water-flow/
     Concepts: BFS, Graph
-    performance: 46.19% runtime, 53.41% memory
+    performance: 56.65% runtime, 82.25% memory
 '''
 from typing import List
 from collections import deque
