@@ -1,8 +1,8 @@
 '''
     Problem: https://leetcode.com/problems/surrounded-regions
     Concepts: matrix, disjointset, union-find
-    performance: time limit exceeded for one test case
-    todo: improve performance. check if you can make disjoint set in bulk.
+    #incomplete: time limit exceeded for one test case
+    #todo: improve performance. check if you can make disjoint set in bulk.
     same problem solved with dfs approach, which has good execution time - check in dfs folder
 '''
 from typing import List
