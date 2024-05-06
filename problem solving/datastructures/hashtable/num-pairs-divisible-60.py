@@ -1,6 +1,6 @@
 '''
     Problem: https://leetcode.com/problems/pairs-of-songs-with-total-durations-divisible-by-60/
-    Concepts: HashTable, Combinatrics
+    Concepts: HashTable, Combinatorics
     Performance: 90.03% runtime, 93.82% memory
 '''
 from typing import List
