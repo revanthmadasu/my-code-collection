@@ -1,8 +1,7 @@
 '''
     Problem: https://leetcode.com/problems/design-authentication-manager/
     Concepts: HashTable, Design
-    performance: 5.03% runtime, 80.31% memory
-    #todo: improve runtime
+    performance: 38.70% runtime, 96.86% memory
 '''
 class AuthenticationManager:
 
@@ -21,10 +20,13 @@ class AuthenticationManager:
                 del self.tokens[tokenId]
 
     def countUnexpiredTokens(self, currentTime: int) -> int:
-        # print(f'count - cur: {currentTime}')
-        x = {token: self.tokens[token] for token in self.tokens}
-        # print(f'{x}')
-        return len([token for token in self.tokens if self.tokens[token] > currentTime])
+        count = 0
+        for token in self.tokens.copy():
+            if self.tokens[token] > currentTime:
+                count += 1
+            else:
+                del self.tokens[token]
+        return count
 
 
 # Your AuthenticationManager object will be instantiated and called as such:
