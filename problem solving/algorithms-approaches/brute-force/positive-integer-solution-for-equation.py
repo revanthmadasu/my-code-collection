@@ -2,6 +2,7 @@
     problem: https://leetcode.com/problems/find-positive-integer-solution-for-a-given-equation/
     concepts: Brute Force Search, Searching
     performance: 14.95% runtime, 88.92% memory
+    #todo: improve runtime, try binary search
 '''
 """
    This is the custom function interface.
