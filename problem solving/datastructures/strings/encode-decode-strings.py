@@ -1,6 +1,6 @@
 '''
-    Problem: https://leetcode.com/problems/top-k-frequent-elements/
-    Concepts: Hash Table, Heap
+    Problem: https://leetcode.com/problems/encode-and-decode-strings/description/
+    Concepts: String, Array
     performance: 11.11% runtime, 19.64% memory
 '''
 from typing import List
