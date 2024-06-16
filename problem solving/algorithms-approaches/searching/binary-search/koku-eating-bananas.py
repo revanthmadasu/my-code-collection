@@ -2,6 +2,7 @@
     Problem: https://leetcode.com/problems/koko-eating-bananas/
     Concepts: Binary Search, Searching
     performance: 5.09% runtime, 42.96% memory
+    #todo: improve runtime
 '''
 from typing import List
 import math
