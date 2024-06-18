@@ -1,6 +1,6 @@
 '''
     Problem: https://leetcode.com/problems/find-the-duplicate-number/
-    Concepts: Linked List
+    Concepts: Linked List, Fast Slow Pointer, Floyd's Algorithm
     performance: 7.29% runtime, 24.71% memory
 '''
 from typing import List
