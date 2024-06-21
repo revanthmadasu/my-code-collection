@@ -18,3 +18,13 @@ class Solution:
                 dp[i] += dp[i-1]
                 _max = max(_max, dp[i])
         return _max
+    def findLengthOfLCIS(self, nums: List[int]) -> int:
+        _max = 1
+        curCount = 1
+        for i in range(1, len(nums)):
+            if nums[i] > nums[i-1]:
+                curCount += 1
+                _max = max(_max, curCount)
+            else:
+                curCount = 1
+        return _max
