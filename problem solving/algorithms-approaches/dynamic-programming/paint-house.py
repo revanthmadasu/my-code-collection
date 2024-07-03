@@ -1,7 +1,7 @@
 '''
     problem: https://leetcode.com/problems/paint-house/
     concepts: dynamic programming, arrays
-    performance: 38.56% runtime, 90.82% memory
+    performance: 93.36% runtime, 62.57% memory
 '''
 from typing import List
 class Solution:
