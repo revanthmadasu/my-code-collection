@@ -4,20 +4,28 @@
     performance: 72.06% runtime, 95.01% memory
 '''
 from typing import List
-
+# neetcode solution
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        if len(nums) <= 2:
-            return max(nums)
-        a = nums[0]
-        b = nums[1]
-        c = nums[0] + nums[2]
-        _res = max(a,b,c)
-        for i in range(3, len(nums)):
-            _sum = max(max(a,b) + nums[i], c)
-            a,b,c = b,c,_sum
-            _res = max(_res, _sum)
-        return _res
+        r1, r2 = 0, 0
+        for num in nums:
+            temp = max(r1 + num, r2)
+            r1, r2 = r2, temp
+        return r2
+# class Solution:
+#     def rob(self, nums: List[int]) -> int:
+#         if len(nums) <= 2:
+#             return max(nums)
+#         a = nums[0]
+#         b = nums[1]
+#         c = nums[0] + nums[2]
+#         _res = max(a,b,c)
+#         for i in range(3, len(nums)):
+#             _sum = max(max(a,b) + nums[i], c)
+#             a,b,c = b,c,_sum
+#             _res = max(_res, _sum)
+#         return _res
+
 # class Solution:
 #     def rob(self, nums: List[int]) -> int:
 #         n = len(nums)
