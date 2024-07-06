@@ -2,6 +2,7 @@
     problem: https://leetcode.com/problems/the-maze-ii/
     concepts: Graph, Dijkstra
     performance: 9.29% runtime, 5.39% memory
+    #todo: improve performance - try bfs instead of dijkstra
 '''
 from typing import List
 from heapq import heappop, heappush
