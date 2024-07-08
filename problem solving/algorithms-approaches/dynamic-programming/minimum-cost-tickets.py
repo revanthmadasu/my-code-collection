@@ -1,6 +1,6 @@
 '''
     problem: https://leetcode.com/problems/minimum-cost-for-tickets
-    concepts: Dynamic Programming, 0/1 Knapsack, DP Cache
+    concepts: Dynamic Programming, Unbounded Knapsack, DP Cache
     performance: 98.8% runtime, 17.23% memory
 '''
 from typing import List
