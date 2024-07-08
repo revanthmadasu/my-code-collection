@@ -4,6 +4,7 @@
     performance: 86.64% runtime, 27.59% memory
 '''
 from typing import List
+from functools import cache
 class Solution:
     def findMaxForm(self, strs: List[str], m: int, n: int) -> int:
         def getCountPair(b_str):
