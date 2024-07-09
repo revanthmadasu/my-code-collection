@@ -5,6 +5,7 @@
 '''
 import abc 
 from abc import ABC, abstractmethod 
+from typing import List
 """
 This is the interface for the expression tree Node.
 You should not remove it, and you can define some classes to implement it.
