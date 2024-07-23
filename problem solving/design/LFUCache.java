@@ -1,3 +1,8 @@
+/*
+ *   problem: https://leetcode.com/problems/lfu-cache
+ *   concepts: linked list, hashtable
+  *  performance: 5.06% runtime, 76.39% memory
+ */
 import java.util.LinkedList;
 import java.util.HashMap;
 class LFUCache {
