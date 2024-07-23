@@ -1,0 +1,33 @@
+Design Cache
+1. The cache should store a key value pair
+2. The cache has a fixed storage
+3. The cache should support multiple eviction policies - LRU, LFU, FIFO, LIFO
+
+Analysis: 
+i. Cache should have methods put and get
+    EvictionPolicy policy;
+    put(string key, Obj val) should add a value to cache
+    get(string key) should retrive value. if not found throw ItemNotFoundException
+ii. Storage: This is an interface.
+        add(String key, Obj val) - adds key value to Storage
+        delete(String key) - deletes key
+        size() - should return the size of Storage
+iii. EvictionPolicy: should take the responsibility of removing keys when storage is exceeded
+    This is an abstract class.
+    Storage storage;
+    abstract getLeastPriorityItem - should get the least priority item according to EvictionPolicy. Concrete class should implement this
+    public String addItem() - adds item to Storage. if exceeds, should remove item based on EvictionPolicy
+    private remove() - removes key from eviction policy and storage
+    abstract removeFromEvictionPolicy() - removes key from eviction policy
+
+iv. HashMapStorage -> Storage:
+    Implentation class of Storage.
+    Hashmap storage<String, Object>;
+    get()
+    add()
+
+v.  LRUEvictionPolicy -> EvictionPolicy
+    LinkedList list;
+    getLeastPriorityItem() - concrete implementation
+    removeFromEvictionPolicy() - concrete implementation
+
