@@ -1,6 +1,6 @@
 '''
     Problem: https://leetcode.com/problems/longest-valid-parentheses
-    Concepts: Dynamic Programming, Cachings
+    Concepts: Dynamic Programming, Caching
     performance: 18.85% runtime, 6.21% memory
     #todo: implement with tabular DP approach. #revise
 '''
