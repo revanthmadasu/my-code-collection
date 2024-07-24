@@ -1,0 +1,53 @@
+Designing Stack Overflow
+
+Stack Overflow is a widely-used question-and-answer platform for programmers, known for its community-driven approach to solving coding problems.
+
+In this article, we'll delve into the object-oriented design of a simplified version of Stack Overflow, covering everything from requirements to a complete Java implementation.
+
+Requirements
+
+User Management: Users can register, log in, and manage their profiles.
+Question Handling: Users can post, view, and search for questions.
+Answering Questions: Users can answer posted questions.
+Comment System: Users can comment on both questions and answers.
+Voting System: Users can upvote or downvote questions and answers.
+Core Use Cases
+
+Posting Questions
+Answering Questions
+Commenting on Questions and Answers
+Voting on Questions and Answers
+
+Classes - 
+1. User class
+    static HashMap usernamePassword;
+    String username;
+    String password;
+    static login(username, password)
+    static register(username, password)
+    postQuestion(String question)
+    viewQuestion(Question q)
+    answerQuestion(Question q)
+    comment(Post p)
+    vote(Post p)
+
+2. Question
+    String question;
+    Answers[] answers;
+    int upVotes, downVotes;
+    Comment comments[];
+    answer()
+
+3. Answer
+    String answer;
+    Question question;
+    Comment comments[];
+
+3. Post - interface
+    upVote()
+    downVote()
+    comment()
+
+4. Comment - class
+    Post p;
+    String comment;
