@@ -1,0 +1,51 @@
+Designing a Pub-Sub System in Java
+
+This article explores the design and implementation of a basic Publish-Subscribe (Pub-Sub) system using Java, following object-oriented design principles.
+
+The Pub-Sub model is a widely used pattern in messaging systems, allowing for scalable and decoupled communication. This guide outlines the design and implementation of such a system.
+
+Understanding the Requirements
+
+The system will enable:
+
+Publishers to send messages to topics.
+Subscribers to receive messages from topics they are subscribed to.
+Scalability and decoupling between publishers and subscribers.
+
+Core Use Cases
+
+Subscribing to Topics: Users can subscribe to topics of interest.
+Publishing Messages: Publishers can send messages to topics.
+Receiving Messages: Subscribers receive messages from their subscribed topics.
+
+
+Analysis:
+
+Key Classes:
+1. class Message:
+    private Object message;
+    public Object getMessage(Subscriber s)
+2. class Topic:
+    private List<Subscriber> subscribers;
+    private String topicName;
+    public void subscribe(Subscriber s)
+    public void unsubscribe(Subscriber s)
+    public void sendMessage(Message m)
+3. interface Subscriber:
+    public void receiveMessage(Message m)
+4. class Publisher:
+    private Topic topic;
+    private PubSubService pubSubService;
+    public void sendMessage(Message m);
+
+5. class PubSubService: - Singleton class
+    private PubSubService pubSubService;
+    private HashMap<String, Topic> topicsMap;
+    public static PubSubService getPubSubService();
+    public Topic getTopic(String topic);
+    public Publisher getPublisher(String topic);
+    public Publisher getPublisher(Topic topic);
+    public void sendMessage(Message message, String topic);
+    public void sendMessage(Message message, Topic topic);
+
+    
