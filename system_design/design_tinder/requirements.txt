@@ -1,0 +1,72 @@
+Use cases:
+i.      Create Profile
+ii.     View Profiles / Recommend Profiles
+iii.    View Matches
+iv.     Chat with matches
+
+Entities:
+
+Profile - 
+String name;
+String userId;
+String description;
+Gender gender;
+Photo[] photos;
+Match[] matches;
+Location location;
+
+Match[] getMatches();
+
+Photo - 
+String url;
+File getPhoto();
+
+Match - 
+Profile p1, p2;
+Swipe - 
+boolean accept;
+Profile swiper;
+Profile lister;
+
+constructor(Profile swiper, Profile lister, boolean accept);
+
+SwipeService - 
+HashMap<String, HashMap<String, boolean>> swipesStore;
+// if p1 swiped p2 or not
+private boolean checkForSwipe(Profile p1, Profile p2);
+public Match swipeRight(Profile swiper, Profile lister);
+public void swipeLeft(Profile swiper, Profile lister);
+
+ProfileService- 
+private SwipeService swipeService;
+private Storage temporaryStorage;
+private Storage cdnStorage;
+public Photo uploadPhoto(File photoFile)
+public Profile createProfile(Profile profile)
+public List<Profile> getProfiles(Location location)
+
+RecommendationsService - 
+"
+Rules for profile swiping
+1. don't show the profiles that are already swiped right
+2. Profiles swiped left should only be shown after user swipes all available profiles
+"
+
+private HashMap<String, LinkedList<Profiles>> recommendationsMap;
+private SwipesService swipesService;
+public List<Profile> getProfileRecommendations(Profile profile, int size);
+private void createProfileRecommendations(Profile profile);
+
+
+ChatService - 
+private HashMap<String, Chat> chatsMap;
+public List<Chat> getChats(Profile p1, Profile p2, int lastCount);
+
+Message - 
+public Profile from;
+public Profile to;
+public String message;
+public Timestamp timestamp;
+
+Chat - 
+public LinkedList<Message> chat;
