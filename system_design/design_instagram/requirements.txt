@@ -1,0 +1,22 @@
+Functional Requirements
+1. Users should be able to create profile
+2. Make friends
+3. Post pictures
+4. View posts
+
+
+Non Functional Requirement:
+1. Should be highly available
+2. Should be globally available
+3. Large number of read requests
+4. Should be able to handle surges
+
+Data estimation:
+1. Active users: 100 Million
+2. Avg read requests per user per hour: 20
+3. Avg writes per user: 1 per day
+
+Takeaways:
+1. Average user has 10x+ reads than writes
+2. Celebrity users have more writes than normal users.
+3. Celebrity user posts reads are 100x more than normal users.
