@@ -1,0 +1,34 @@
+Designing an Online Shopping System Like Amazon
+
+
+System Requirements
+
+The Online Shopping System should:
+
+Product Management: Manage a catalog of products.
+User Account Management: Handle user registrations and logins.
+Shopping Cart Management: Allow users to add and remove products from their shopping cart.
+Order Processing: Process user orders and maintain order history.
+
+
+Core Use Cases
+
+Browsing Products
+Managing User Accounts
+Handling Shopping Carts
+Processing Orders
+
+Users of application:
+EndUser
+InventoryManager
+
+Entities:
+User - should have user info. should add/delete products from cart. should make order
+InventoryManager - should update product counts of inventories
+Inventory - should contain product counts. checkIf an item with a count can be added to inventory
+Product - have product info -
+Order - order info - list or products, 
+Cart - list of products for a user
+
+
+
