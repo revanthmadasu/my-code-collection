@@ -3,42 +3,31 @@
     concepts: stacks
     performance: 92.04% runtime, 79.16% memory
 '''
-import math
 class MinStack:
 
     def __init__(self):
+        self.minStack = []
         self.stack = []
-        self.min_stack = []
-        self.cur_min = math.inf
-        self.stack_len = 0
-        self.min_len = 0
 
     def push(self, val: int) -> None:
-        if val <= self.getMin():
-            self.min_stack.append(val)
-            self.min_len += 1
-        self.stack.append(val)
-        self.stack_len += 1
+        data = (val, len(self.stack))
+        if not (len(self.minStack) and self.minStack[len(self.minStack)-1][0] < val):
+            self.minStack.append(data)
+        self.stack.append(data)
+        # print(f'after push({val}), stack: {self.stack}, minStack: {self.minStack}')
 
     def pop(self) -> None:
-        if self.stack_len:
-            self.stack_len -= 1
-            val = self.stack.pop()
-            if val == self.min_stack[self.min_len - 1]:
-                self.min_stack.pop()
-                self.min_len -= 1
+        data = self.stack.pop()
+        if data == self.minStack[len(self.minStack)-1]:
+            self.minStack.pop()
+        # print(f'after pop->({data}), stack: {self.stack}, minStack: {self.minStack}')
+        return data[0]
 
     def top(self) -> int:
-        # print(self.stack)
-        if self.stack_len:
-            return self.stack[self.stack_len - 1]
-        return -1
+        return self.stack[len(self.stack)-1][0]
 
     def getMin(self) -> int:
-        # print(self.min_stack)
-        if self.min_len:
-            return self.min_stack[self.min_len - 1]
-        return math.inf
+        return self.minStack[len(self.minStack)-1][0]
     
     def parseInput(self,inputCmds, inputs):
         n = len(inputCmds)
