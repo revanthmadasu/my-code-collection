@@ -6,20 +6,13 @@
 from typing import List
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        if nums[0] < nums[len(nums)-1] or len(nums) <= 2:
-            return min(nums)
-        start = 0
-        end = len(nums) - 1
-        while end - start > 1:
-            mid = (start+end)//2
-            if nums[mid] < nums[end] and nums[mid] > nums[start] and nums[mid-1] > nums[mid] and nums[mid+1] > nums[mid]:
-                return nums[mid]
-            if nums[mid] > nums[end]:
-                start = mid
-            elif nums[mid] < nums[start]:
-                end = mid
-            if start == end:
-                return nums[start]
-            elif end - start == 1:
-                return min(nums[start], nums[end])
-        return -1        
+        left, right = 0, len(nums)-1        
+        while left < right:
+            if nums[left] < nums[right]:
+                return nums[left]
+            mid = (left + right)//2
+            if nums[mid] < nums[left]:
+                right = mid
+            else:
+                left = mid + 1
+        return min(nums[left], nums[right])
