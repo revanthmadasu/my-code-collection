@@ -8,29 +8,21 @@ from typing import List
 import math
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
-        maxPossible = max(piles)
-        if h == len(piles):
-            return maxPossible
-        def isPossible(k):
-            curH = 0
-            i = 0
-            nPiles = piles.copy()
-            # print(f'isPossible: {k}')
-            while curH < h and i < len(piles):
-                # print(f'curH: {curH}, i: {i}, k: {k}')
-                nPiles[i]
-                curH += math.ceil(nPiles[i]/k)
-                i += 1
-            return i == len(piles) and curH <= h
-        left, right = 1, maxPossible
-
-        while left != right:
-            # print(f'left: {left}, right: {right}')
-            mid = (left + right) // 2
-            if isPossible(mid):
-                maxPossible = mid
-                right = mid
+        kUpper = max(piles)
+        kLower = 1
+        kCur = 0
+        def getHrsRequiredForK(k):
+            hrsCount = 0
+            for pile in piles:
+                hrsCount += math.ceil(pile/k)
+            return hrsCount
+        while kLower != kUpper:
+            kCur = (kLower + kUpper) // 2
+            # print(f'{kLower}, {kUpper}, {kCur}')
+            hrs = getHrsRequiredForK(kCur)
+            if hrs > h:
+                kLower = kCur+1
             else:
-                left = mid + 1
-        return left
+                kUpper = kCur
+        return kLower
         
