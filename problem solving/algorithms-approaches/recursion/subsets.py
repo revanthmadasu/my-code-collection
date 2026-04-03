@@ -1,22 +1,19 @@
 '''
     Problem: https://leetcode.com/problems/subsets
-    Concepts: Recursion
-    performance: 27.09% runtime, 96.93% memory
+    Concepts: Recursion, Backtracking
+    performance: 100% runtime, 78.99% memory
 '''
 from typing import List
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        def recursiveSearch(i, sets):
-            # print(f'i is {i}')
-            _sets2 = []
-            for _set in sets:
-                _sets2.append(_set+[nums[i]])
-            sets.extend(_sets2)
-            if i+1 < len(nums):
-                recursiveSearch(i+1, sets)
-        sets = [[]]
-        recursiveSearch(0, sets)
-        return sets
+        def dfs(pos, curComb, res):
+            for i in range(pos+1, len(nums)):
+                newComb = curComb + [nums[i]]
+                res.append(newComb)
+                dfs(i, newComb, res)
+        res = [[]]
+        dfs(-1, [], res)
+        return res
 
 sol = Solution()
 print(sol.subsets([1,2,3]))
