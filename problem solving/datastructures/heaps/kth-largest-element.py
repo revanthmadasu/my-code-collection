@@ -3,6 +3,7 @@
     concepts: heaps
     performance: 5.02% runtime, 91.54% memory
 '''
+import heapq
 class Heap:
     def __init__(self, key_fn = None):
         self.vals = []
@@ -66,21 +67,26 @@ class Heap:
         return len(self.vals) == 0
 
 class Solution(object):
-    def findKthLargest(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        heap = Heap()
-        for num in nums:
-            heap.push(num)
-        res = nums[0]
-        for i in range(k):
-            res = heap.pop()
-            print('popped: ', res)
-        return res
+    # def findKthLargest(self, nums, k):
+    #     """
+    #     :type nums: List[int]
+    #     :type k: int
+    #     :rtype: int
+    #     """
+    #     heap = Heap()
+    #     for num in nums:
+    #         heap.push(num)
+    #     res = nums[0]
+    #     for i in range(k):
+    #         res = heap.pop()
+    #         print('popped: ', res)
+    #     return res
         
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heapq.heapify(nums)
+        for i in range(len(nums) - k):
+            heapq.heappop(nums)
+        return nums[0]
 sol = Solution()
 
 print(sol.findKthLargest([3,2,3,1,2,4,5,5,6], 4))
