@@ -5,31 +5,49 @@
 '''
 from typing import List
 from collections import deque
-# bfs approach
 class Solution:
+    # dfs approach
     def numIslands(self, grid: List[List[str]]) -> int:
-        curIslandCount = 0     
-        dq = deque()
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
-                if grid[r][c] != "0":
-                    curIslandCount += 1
-                    # queue = [(r,c)]
-                    dq.append((r,c))
-                    # print(f'cur {r}, {c}')
-                    while dq:
-                        curR, curC = dq.pop()
-                        # visited[curR][curC] = True
-                        if curR-1 >= 0 and grid[curR-1][curC] == "1":
-                            dq.append((curR-1, curC))
-                        if curC-1 >= 0 and grid[curR][curC-1] == "1":
-                            dq.append((curR, curC-1))
-                        if curR+1 < len(grid) and grid[curR+1][curC] == "1":
-                            dq.append((curR+1, curC))
-                        if curC+1 < len(grid[0]) and grid[curR][curC+1] == "1":
-                            dq.append((curR, curC+1))
-                        grid[curR][curC] = "0"
-        return curIslandCount
+        visited = set()
+        m, n = len(grid), len(grid[0])
+        def dfs(pos):
+            if pos in visited:
+                return False
+            visited.add(pos)
+            nextPositions = [npos for npos in [(pos[0]+1, pos[1]), (pos[0]-1, pos[1]), (pos[0], pos[1]+1), (pos[0], pos[1]-1)] if (npos[0] < m and npos[1] < n and npos[0] >= 0 and npos[1] >= 0) and npos not in visited and grid[npos[0]][npos[1]] == '1']
+            for npos in nextPositions:
+                dfs(npos)
+            return True
+        noIslands = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1' and dfs((i,j)):
+                    noIslands += 1
+        return noIslands
+    # bfs approach
+    # def numIslands(self, grid: List[List[str]]) -> int:
+    #     curIslandCount = 0     
+    #     dq = deque()
+    #     for r in range(len(grid)):
+    #         for c in range(len(grid[0])):
+    #             if grid[r][c] != "0":
+    #                 curIslandCount += 1
+    #                 # queue = [(r,c)]
+    #                 dq.append((r,c))
+    #                 # print(f'cur {r}, {c}')
+    #                 while dq:
+    #                     curR, curC = dq.pop()
+    #                     # visited[curR][curC] = True
+    #                     if curR-1 >= 0 and grid[curR-1][curC] == "1":
+    #                         dq.append((curR-1, curC))
+    #                     if curC-1 >= 0 and grid[curR][curC-1] == "1":
+    #                         dq.append((curR, curC-1))
+    #                     if curR+1 < len(grid) and grid[curR+1][curC] == "1":
+    #                         dq.append((curR+1, curC))
+    #                     if curC+1 < len(grid[0]) and grid[curR][curC+1] == "1":
+    #                         dq.append((curR, curC+1))
+    #                     grid[curR][curC] = "0"
+    #     return curIslandCount
 # union find approach
 # class Solution:
 #     def numIslands(self, grid: List[List[str]]) -> int:
