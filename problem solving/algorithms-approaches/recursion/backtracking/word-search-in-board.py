@@ -6,44 +6,23 @@
 from typing import List
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        self.m = len(board) # rows
-        self.n = len(board[0]) # cols
-        self.board = board
-        self.word = word
-        self.wordLen = len(word)
-        for i in range(self.m):
-            for j in range(self.n):
-                if self.board[i][j] == self.word[0][0]:
-                    if self.wordLen == 1:
-                        return True
-                    acc = set()
+        m = len(board)
+        n = len(board[0])
+        def dfs(curPos, path):
+            wordSearchIndex = len(path)
+            if len(path) == len(word):
+                return True
+            nextPositions = [pos for pos in [(curPos[0]+1, curPos[1]), (curPos[0]-1, curPos[1]), (curPos[0], curPos[1]+1), (curPos[0], curPos[1]-1)] if pos[0] < m and pos[0] >= 0 and pos[1] < n and pos[1] >= 0 and pos not in path and board[pos[0]][pos[1]] == word[wordSearchIndex]]
+            if wordSearchIndex == len(word) - 1 and len(nextPositions) > 0:
+                return True
+            for pos in nextPositions:
+                if dfs(pos, path+[pos]):
+                    return True
+            return False
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == word[0]:
                     pos = (i,j)
-                    acc.add(pos)
-                    if self.recursiveSearch(pos, acc, 1):
+                    if dfs(pos, [pos]):
                         return True
         return False
-    def recursiveSearch(self, curPos, accPos, targetLIndex):
-        targetLetter = self.word[targetLIndex]
-        i, j = curPos
-        res = []
-        matchedPos = []
-        if i+1 < self.m:
-            if self.board[i+1][j] == targetLetter:
-                matchedPos.append((i+1, j))
-        if i-1 >= 0:
-            if self.board[i-1][j] == targetLetter:
-                matchedPos.append((i-1, j))
-        if j+1 < self.n:
-            if self.board[i][j+1] == targetLetter:
-                matchedPos.append((i, j+1))
-        if j-1 >= 0:
-            if self.board[i][j-1] == targetLetter:
-                matchedPos.append((i, j-1))
-        for pos in matchedPos:
-            if not (pos in accPos):
-                if targetLIndex == self.wordLen - 1:
-                    return True
-                newAccPos = accPos.copy()
-                newAccPos.add(pos)
-                res.append(self.recursiveSearch(pos, newAccPos, targetLIndex+1))
-        return any(res)
