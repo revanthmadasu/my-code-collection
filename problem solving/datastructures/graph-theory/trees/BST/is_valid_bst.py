@@ -26,3 +26,23 @@ class Solution:
         if node.right:
             right_traversal = self.getInorder(node.right)
         return [*left_traversal, node.val, *right_traversal]
+
+    # dfs approach    
+    # def isValidBST(self, root: Optional[TreeNode]) -> bool:
+    #     # returns (bool, min, max)
+    #     def dfs(node):
+    #         if node is None:
+    #             return (True, 0, 0)
+    #         leftRes = None
+    #         if node.left:
+    #             leftRes = dfs(node.left)
+    #             if (not leftRes[0]) or leftRes[2] >= node.val:
+    #                 # print(f'false at {node.}')
+    #                 return (False, 0, 0)
+    #         rightRes = None
+    #         if node.right:
+    #             rightRes = dfs(node.right)
+    #             if (not rightRes[0]) or rightRes[1] <= node.val:
+    #                 return (False, 0, 0)
+    #         return (True, leftRes[1] if leftRes else node.val, rightRes[2] if rightRes else node.val)
+    #     return dfs(root)[0]
