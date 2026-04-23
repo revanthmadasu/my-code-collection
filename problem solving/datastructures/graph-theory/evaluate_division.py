@@ -1,54 +1,45 @@
 '''
     problem: https://leetcode.com/problems/evaluate-division
     concepts: Graphs, graph traversal, BFS
-    performance: 37.32% runtime, 40.02% memory
+    performance: 100% runtime, 43.02% memory
 '''
 from typing import List
 from collections import defaultdict
 from collections import deque
 class Solution:
     def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
-        # key - dict<key-node, value/cost>
-        graph = dict()
+        costsMap = dict()
         for i in range(len(equations)):
-            x,y = equations[i]
-            if x not in graph:
-                graph[x] = dict()
-            graph[x][y] = values[i]
-            if values[i] != 0:
-                graph[x][x] = 1
-                if y not in graph:
-                    graph[y] = dict()
-                graph[y][x] = 1/values[i]
-                graph[y][y] = 1
-        # return cost, starting from x to y
+            x, y = equations[i]
+            if x not in costsMap:
+                costsMap[x] = dict()
+            if y not in costsMap:
+                costsMap[y] = dict()
+            costsMap[x][y], costsMap[y][x], costsMap[x][x], costsMap[y][y] = values[i], 1/values[i], 1, 1
+
         def bfs(x, y):
-            if x not in graph:
-                return -1
-            if y in graph[x]:
-                return graph[x][y]
-            visited = set()
-            q = deque()
-            q.append((x, 1))
-            while q:
-                node, cost = q.popleft()
-                if node in visited:
-                    continue
-                visited.add(node)
-                if node not in graph:
-                    continue
-                for nextNode in graph[node]:
-                    if nextNode not in visited:
-                        nextNodeCost = cost * graph[node][nextNode]
-                        q.append((nextNode, nextNodeCost))
-                        graph[x][nextNode] = nextNodeCost
-                        if nextNode == y:
-                            return nextNodeCost
-            return -1.0
+            if y in costsMap[x]:
+                return costsMap[x][y]
+            visited = dict()
+            visited[x] = True
+            queue = [(x,1)]
+            while len(queue):
+                newQueue = []
+                for item in queue:
+                    for nextNode in costsMap[item[0]]:
+                        if nextNode not in visited:
+                            nextCost = item[1] * costsMap[item[0]][nextNode]
+                            costsMap[x][nextNode] = nextCost
+                            if nextNode == y:
+                                return nextCost
+                            newQueue.append((nextNode, nextCost))
+                        visited[nextNode] = True
+                queue = newQueue
+            return -1
         res = []
         for query in queries:
-            res.append(bfs(query[0], query[1]))
-
+            x, y = query
+            res.append(-1 if x not in costsMap or y not in costsMap else bfs(x,y))
         return res
 
 # concepts: Graphs, graph traversal, cost, Union find, disjoint set        
