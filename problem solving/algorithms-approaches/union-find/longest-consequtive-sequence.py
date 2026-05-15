@@ -3,17 +3,14 @@
     Concepts: Sets, Recursion, Memoization, Union find, DFS
     performance: 5% runtime, 5% memory
 '''
+from functools import lru_cache
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        if len(nums) == 0:
-            return 0
-        nums_set = set(nums)
-        @lru_cache(maxsize=None)
-        def getLowerCount(n):
-            if n-1 in nums_set:
-                return 1 + getLowerCount(n-1)
-            return 1
-        _max = 1
-        for num in nums:
-            _max = max(_max, getLowerCount(num))
+        numsSet = set(nums)
+        @lru_cache
+        def getPrevSubsequentCount(num):
+            return (1 + getPrevSubsequentCount(num-1)) if num in numsSet else 0
+        _max = 0
+        for num in numsSet:
+            _max = max(getPrevSubsequentCount(num), _max)
         return _max
