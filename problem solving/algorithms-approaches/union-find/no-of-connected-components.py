@@ -2,6 +2,7 @@
     Problem: https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
     Concepts: Graph, Union Find
     performance: 54.59% runtime, 77.51% memory
+    revised on 05/15/2026
 '''
 from typing import List
 class Solution:
