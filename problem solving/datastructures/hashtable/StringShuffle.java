@@ -1,7 +1,6 @@
 /**
  * Problem: https://leetcode.com/problems/shuffle-string
  * Concepts: HashMap
- * 
  */
 class Solution {
     public String restoreString(String s, int[] indices) {
