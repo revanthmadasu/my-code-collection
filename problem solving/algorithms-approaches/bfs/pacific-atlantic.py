@@ -3,41 +3,36 @@
     Concepts: BFS, Graph
     performance: 56.65% runtime, 82.25% memory
 '''
-from typing import List
 from collections import deque
+from typing import List
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        m = len(heights)
-        n = len(heights[0])
-        def bfs(q):
-            visited = set()
-            possible = [[False] * n for _ in range(m)]
-            while q:
-                cPos = q.popleft()
-                if (cPos[0], cPos[1]) in visited:
+        m, n = len(heights), len(heights[0])
+        def bfs(pos, visited):
+            queue = deque()
+            queue.append(pos)
+            while len(queue):
+                pos = queue.popleft()
+                if pos in visited:
                     continue
-                visited.add((cPos[0], cPos[1]))
-                possible[cPos[0]][cPos[1]] = True
-                for nextPos in [(cPos[0]+1, cPos[1]),(cPos[0], cPos[1]+1),(cPos[0]-1, cPos[1]), (cPos[0], cPos[1]-1)]:
-                    if nextPos[0] < m and nextPos[0] >= 0 and nextPos[1] < n and nextPos[1] >= 0:
-                        if nextPos not in visited and heights[nextPos[0]][nextPos[1]] >= heights[cPos[0]][cPos[1]]:
-                            q.append(nextPos)
-            return possible
-        pacificQ = deque()
-        atlanticQ = deque()
-        for r in range(m):
-            pacificQ.append((r, 0))
-            atlanticQ.append((r, n-1))
+                r,c = pos
+                visited.add(pos)
+                nextPos = [nP for nP in [(r+1, c), (r-1, c), (r, c+1), (r, c-1)] if nP[0] < m and nP[0] >= 0 and nP[1] < n and nP[1] >= 0 and nP not in visited and heights[r][c] <= heights[nP[0]][nP[1]] and nP not in visited]
+                queue.extend(nextPos)
+        pacificVisited = set()
+        atlanticVisited = set()
+        pacificPoints = []
+        atlanticPoints = []
         for c in range(n):
-            pacificQ.append((0, c))
-            atlanticQ.append((m-1, c))
-        # print(f'pacific q: {pacificQ}')
-        # print(f'atlantic q: {atlanticQ}')
-        pacificPossible = bfs(pacificQ)
-        atlanticPossible = bfs(atlanticQ)
-        res = []
+            pacificPoints.append((0, c))
+            atlanticPoints.append((m-1, c))
         for r in range(m):
-            for c in range(n):
-                if pacificPossible[r][c] and atlanticPossible[r][c]:
-                    res.append([r,c])
-        return res
+            pacificPoints.append((r, 0))
+            atlanticPoints.append((r, n-1))
+        for pacPoint in pacificPoints:
+            bfs(pacPoint, pacificVisited)
+        for atlPoint in atlanticPoints:
+            bfs(atlPoint, atlanticVisited)
+
+        bothVisited = pacificVisited & atlanticVisited
+        return [list(pos)for pos in bothVisited]
