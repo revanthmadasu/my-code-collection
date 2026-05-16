@@ -10,29 +10,30 @@ class ListNode:
         self.val = val
         self.next = next
 class Solution:
-    def insertPivot(self, pivot, current):
-        current.val = pivot.val
-        return pivot.next
-    def mergeTwoLists(self, list1, list2):
-        pivot1 = list1
-        pivot2 = list2
-        if not pivot1 and not pivot2:
-            return None
-        elif not pivot1:
-            return pivot2
-        elif not pivot2: 
-            return pivot1
-        new_list = cur_node = ListNode()
-        while pivot1 or pivot2:
-            if ((pivot1 and pivot2) and pivot1.val < pivot2.val) or ((not (pivot1 and pivot2)) and pivot1):
-                pivot1 = self.insertPivot(pivot1, cur_node)
-            elif ((pivot1 and pivot2) and pivot1.val >= pivot2.val) or ((not (pivot1 and pivot2)) and pivot2):
-                pivot2 = self.insertPivot(pivot2, cur_node)
-            if pivot1 or pivot2:
-                cur_node.next = ListNode()
-                cur_node = cur_node.next
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        curNode1 = list1
+        curNode2 = list2
+        if not curNode1:
+            return curNode2
+        if not curNode2:
+            return curNode1
+        mergedList = None
+        prevNode = None
+        while curNode1 and curNode2:
+            selectNode = None
+            if curNode1.val <= curNode2.val:
+                selectNode = curNode1
+                curNode1 = curNode1.next
             else:
-                cur_node.next = None
-                break
-        return new_list
-    
+                selectNode = curNode2
+                curNode2 = curNode2.next
+            if prevNode:
+                prevNode.next = selectNode
+            if not mergedList:
+                mergedList = selectNode
+            prevNode = selectNode
+        if curNode1:
+            prevNode.next = curNode1
+        if curNode2:
+            prevNode.next = curNode2
+        return mergedList
