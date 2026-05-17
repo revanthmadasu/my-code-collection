@@ -26,7 +26,50 @@ class Solution:
                 for end_index in dictWordOccurrences[i]:
                     seqs[end_index] = True
         return seqs[n-1]
-            
+
+# dfs approach
+from collections import deque
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        def findAll(s, word):
+            i = 0
+            matchedIndices = []
+            while True:
+                i = s.find(word, i)
+                if i == -1:
+                    return matchedIndices
+                matchedIndices.append(i)
+                i += 1
+        wordIntervalsMap = dict()
+        for word in wordDict:
+            matchedIndices = findAll(s, word)
+            # print(f'matched indices for {word}')
+            for matchedIndex in matchedIndices:
+                # print(f'matched Index: {matchedIndex}')
+                if matchedIndex not in wordIntervalsMap:
+                    wordIntervalsMap[matchedIndex] = []
+                wordIntervalsMap[matchedIndex].append((matchedIndex, matchedIndex + len(word)-1))
+        if 0 not in wordIntervalsMap:
+            return False
+        visited = set()
+        q = deque()
+        q.extend(wordIntervalsMap[0])
+        # print(f'intervals map: {wordIntervalsMap}')
+        while len(q):
+            # print(f'q is {q}')
+            interval = q.pop()
+            if interval in visited:
+                continue
+            if interval[1] == len(s) - 1:
+                return True
+            visited.add(interval)
+            if (interval[1] + 1) in wordIntervalsMap:
+                for nextInterval in wordIntervalsMap[interval[1] + 1]:
+                    if nextInterval not in visited:
+                        q.append(nextInterval)
+        return False
+
+
 sol = Solution()
 print(sol.wordBreak("leetcode", ["leet", "code"]))
             
